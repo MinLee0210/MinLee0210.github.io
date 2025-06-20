@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MinLee0210</title>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"
+    integrity="sha256-WCzAhd2P6gRJF9Hv3oOOd+hFJi/QJbv+Azn4CGB8gfY=" crossorigin="anonymous" defer></script>
+  <script src="/js/index.js" defer></script>
+  <script src="/js/prompt.js" defer></script>
+  <script src="/js/keyboard.js" defer></script>
+  <script src="/js/tab.js" defer></script>
+  <script src="/js/commands.js" defer></script>
+  <script src="/js/config.js" defer></script><script src="/config.js"></script><link rel="stylesheet" href="/css/base.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="/css/page.css"></head><body onkeydown='exec(event)' style='background-image: url("/assets/background.jpg");'><main>
+      <div class="files" id="files" tabindex="0">
+<ul>
+
+  <li class="file">
+    <span><a class="selected"href='https://MinLee0210.github.io/blog/'
+      tabindex="-2">  Blog</a></span>
+  </li><li class="file">
+    <span><a href='https://MinLee0210.github.io/contact/'
+      tabindex="-3">  Contact</a></span>
+  </li><li class="file">
+    <span><a href='https://MinLee0210.github.io/readme/'
+      tabindex="-4">  README</a></span>
+  </li>
+</ul>
+</div>
+      <div class="viewer page" id="viewer" tabindex="0">
+        <div class="tab">
+<div class="file-manager" onclick='document.getElementById("files").classList.toggle("open"); document.getElementById("content").classList.toggle("close")'> </div>
+<ul id="tabs">
+</ul>
+
+
+</div>
+        <div class="content" id="content"><h1 id="blog">Blog</h1>
+<p>Welcome to my digital lab, where I dive deep into groundbreaking AI techniques, share code explorations, and chase the hottest advancements in the field. Expect insights on large language models, deep learning, and my latest project—a RAG system to revolutionize document summarization.</p>
+<p>Join me as we push the boundaries of AI and build the future together! Stay tuned for updates, research notes, and curated gems that spark innovation.</p>
+<p>Got a hot AI topic? Let me know!</p>
+<p>These are some of my famous writings:</p>
+<ul>
+<li>Fun Project: Real-time Object Tracking with Kafka and YOLO
+<ul>
+<li>English: <a href="https://medium.com/ai-in-plain-english/fun-project-real-time-object-tracking-with-kafka-and-yolo-767124e983da">Medium</a></li>
+<li>Vietnamese: <a href="https://minhhoccode.substack.com/p/xay-dung-he-thong-theo-doi-thong">Substack</a> | <a href="https://viblo.asia/p/xay-dung-he-thong-theo-doi-thong-minh-voi-kafka-va-yolo-GAWVp7RkL05">Viblo</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="prompt" id="terminal"><input
+    type="text"
+    id="setter"
+    onkeydown="writeit(this, event);moveIt(this.value.length, event)"
+    onchange="writeit(this, event)"
+    onkeyup="writeit(this, event)"
+    onkeypress="writeit(this, event);"
+    >
+<label for="setter" id="writer"> </label><b class="cursor" id="cursor"></b></div>
+    </main>
+  </body>
+
+</html>

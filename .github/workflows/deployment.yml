@@ -12,6 +12,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Setup Zola
         uses: shalzz/zola-deploy-action@v0.17.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Set GITHUB_TOKEN as an environment variable
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          build_dir: public
+          args: --build-dir public  # Use args to specify the build directory
