@@ -1,81 +1,340 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MinLee0210</title>
-  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"
-    integrity="sha256-WCzAhd2P6gRJF9Hv3oOOd+hFJi/QJbv+Azn4CGB8gfY=" crossorigin="anonymous" defer></script>
-  <script src="/js/index.js" defer></script>
-  <script src="/js/prompt.js" defer></script>
-  <script src="/js/keyboard.js" defer></script>
-  <script src="/js/tab.js" defer></script>
-  <script src="/js/commands.js" defer></script>
-  <script src="/js/config.js" defer></script><script src="/config.js"></script><link rel="stylesheet" href="/css/base.css"><link rel="stylesheet" href="style.css"></head><body onkeydown='exec(event)' style='background-image: url("/assets/background.jpg");'><main>
-      <div class="files" id="files" tabindex="0">
-<ul>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="description" content="">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[var(--background)] text-[var(--text)] transition-colors duration-300 font-sans">
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+        <div class="absolute top-20 left-10 w-40 h-40 rounded-full bg-[var(--primary)] opacity-10 floating"></div>
+        <div class="absolute bottom-10 right-20 w-60 h-60 rounded-full bg-[var(--secondary)] opacity-10 floating" style="animation-delay: 2s;"></div>
+        <div class="absolute top-1/3 right-1/4 w-32 h-32 rounded-full bg-[var(--primary)] opacity-10 floating" style="animation-delay: 4s;"></div>
+    </div>
 
-  <li class="file">
-    <span><a href='https://MinLee0210.github.io/blog/'
-      tabindex="-2">  Blog</a></span>
-  </li><li class="file">
-    <span><a href='https://MinLee0210.github.io/contact/'
-      tabindex="-3">  Contact</a></span>
-  </li><li class="file">
-    <span><a href='https://MinLee0210.github.io/readme/'
-      tabindex="-4">  README</a></span>
-  </li>
-</ul>
-</div>
-      <div class="viewer " id="viewer" tabindex="0">
-        <div class="tab">
-<div class="file-manager" onclick='document.getElementById("files").classList.toggle("open"); document.getElementById("content").classList.toggle("close")'> </div>
-<ul id="tabs">
-</ul>
-
-
-</div>
-        <div class="content" id="content"><h1 id="minh-s-ai-engineering-portfolio">Minh's AI Engineering Portfolio</h1>
-<h2 id="about-me">About Me</h2>
-<p>I'm Minh, an AI Engineer with over a year of experience in natural language processing (NLP) and generative AI, passionate about unlocking the cutting-edge potential of AI. My work focuses on building innovative tools and diving into the latest research to push the boundaries of what AI can achieve. This portfolio is my digital lab 🔬, showcasing code explorations, research, and projects that challenge the status quo.</p>
-<h2 id="technical-expertise">Technical Expertise</h2>
-<ul>
-<li>Programming Languages: Python, JavaScript, Rust</li>
-<li>Machine Learning &amp; Deep Learning: PyTorch, TensorFlow, Hugging Face, ONNX</li>
-<li>Big Data &amp; Databases: MongoDB, Valkey/Redis, MilvusDB, PostgreSQL</li>
-<li>Crawling Tools: BeautifulSoup, Playwright/Selenium</li>
-<li>Event-Streaming &amp; Messaging Queues: RabbitMQ, Kafka, Fluvio</li>
-<li>Development Frameworks &amp; Deployment: FastAPI, Gin, Next.js, Docker</li>
-<li>Task Management &amp; Collaboration: Git, Odoo, Jira, Trello, Notion</li>
-</ul>
-<h2 id="education">Education</h2>
-<ul>
-<li>Vietnamese-German University: Binh Duong Province, VietnamBachelor’s Degree, Faculty of Computer Science, 2019 - 2023</li>
-<li>Frankfurt University of Applied Sciences: Frankfurt, GermanyBachelor’s Degree, Faculty of Computer Science, 2019 - 2023</li>
-</ul>
-<h2 id="what-i-do">What I Do</h2>
-<ul>
-<li>AI Frontiers 🤖: I explore cutting-edge AI through hands-on projects, including sentiment analysis, text classification, and chatbots using architectures like BERT and GPT. My work includes text preprocessing, model optimization, production deployment, and web crawling for high-quality training data.</li>
-<li>Curated Gems 💥: I share impactful resources like research papers, blog posts, and tutorials to make AI accessible and keep you ahead of the curve.</li>
-<li>Building the Future 🚀: Currently, I’m developing a Retrieval-Augmented Generation (RAG) system to revolutionize document summarization, blending innovation with practical application.</li>
-</ul>
-<h2 id="let-s-collaborate">Let’s Collaborate!</h2>
-<p>I thrive in cross-functional teams and communicate fluently in English. Have a challenging AI project or a hot topic you’d like to explore? Reach out—I’m always ready to dive into new possibilities and build the future of AI!</p>
-<p>P.S. Check out my projects and connect with me to discuss groundbreaking ideas in AI!</p>
-
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        <!-- Theme Selector -->
+        <div class="flex justify-end gap-3 mb-6">
+            <div class="theme-selector w-6 h-6 rounded-full bg-blue-500" onclick="changeTheme('blue')" title="Blue Theme"></div>
+            <div class="theme-selector w-6 h-6 rounded-full bg-purple-500" onclick="changeTheme('purple')" title="Purple Theme"></div>
+            <div class="theme-selector w-6 h-6 rounded-full bg-amber-500" onclick="changeTheme('amber')" title="Amber Theme"></div>
+            <button onclick="toggleDarkMode()" class="ml-4 px-3 py-1 rounded-md bg-[var(--primary)] text-white text-xs">
+                <i class="fas fa-moon"></i> Toggle Dark
+            </button>
         </div>
-      </div>
-      <div class="prompt" id="terminal"><input
-    type="text"
-    id="setter"
-    onkeydown="writeit(this, event);moveIt(this.value.length, event)"
-    onchange="writeit(this, event)"
-    onkeyup="writeit(this, event)"
-    onkeypress="writeit(this, event);"
-    >
-<label for="setter" id="writer"> </label><b class="cursor" id="cursor"></b></div>
-    </main>
-  </body>
 
+        <!-- Header -->
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6">
+    <div>
+        <h1 class="text-3xl font-bold mb-1">Minh Lê Đức</h1>
+        <h2 class="text-xl text-[var(--primary)] font-semibold mb-2">AI Engineer</h2>
+        <p class="text-sm opacity-80 max-w-lg">AI Engineer with 2+ years of experience in NLP and generative AI, specializing in sentiment analysis, text classification, and conversational agents. Proficient with BERT, GPT, and end-to-end ML workflows from data collection to deployment. This portfolio showcases my experiments and projects that push AI's boundaries through innovative applications and research.</p>
+    </div>
+    <div class="flex flex-col items-end">
+        <div class="flex items-center mb-2">
+            <i class="fas fa-envelope mr-2 text-[var(--primary)]"></i>
+            <span class="text-sm"><a href="mailto:minh.leduc.0210@gmail.com">minh.leduc.0210@gmail.com</a></span>
+        </div>
+        <div class="flex items-center mb-2">
+            <i class="fas fa-phone mr-2 text-[var(--primary)]"></i>
+            <span class="text-sm">(+84) 0706208723</span>
+        </div>
+        <div class="flex items-center mb-2">
+            <i class="fas fa-map-marker-alt mr-2 text-[var(--primary)]"></i>
+            <span class="text-sm">Hồ Chí Minh, Việt Nam</span>
+        </div>
+        <div class="flex items-center">
+            <i class="fab fa-linkedin mr-2 text-[var(--primary)]"></i>
+            <span class="text-sm"><a href="https://www.linkedin.com/in/minhle007/"></a>linkedin.com/in/minhle007/</a></span>
+        </div>
+    </div>
+</header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Left Column -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Experience -->
+                <section class="resume-section bg-[var(--card)] p-6 rounded-lg shadow-sm">
+    <h2 class="text-xl font-bold mb-4 border-b pb-2 border-[var(--primary)]">Experience</h2>
+    
+    <div class="mb-6">
+      <div class="flex justify-between items-start">
+        <h3 class="font-semibold">AI Engineer</h3>
+        <span class="text-xs bg-[var(--primary)] text-white px-2 py-1 rounded">Oct 2024 – June 2025</span>
+      </div>
+      <p class="text-sm text-[var(--primary)] mb-2">Oryza Systems</p>
+      <ul class="list-disc list-inside text-sm space-y-1 pl-2">
+        <li><strong>AI Services:</strong> Designed and deployed real-time face recognition systems for secure, low-latency identification across edge and cloud environments.</li>
+        <li><strong>Vector Retrieval Service:</strong> Integrated Faiss and Milvus to enable high-speed vector similarity search and information retrieval for image recognition.</li>
+        <li><strong>AI Deployment:</strong> Built containerized inference services using Docker and led the entire deployment lifecycle including CI/CD, monitoring, performance tuning, and rollback strategies.</li>
+        <li><strong>Metadata Services:</strong> Designed and implemented scalable metadata pipelines for ingestion, enrichment, and system-wide synchronization using Kafka.</li>
+        <li><strong>Infrastructure DevOps:</strong> Managed microservices with Docker and Kubernetes.</li>
+        <li><strong>Observability:</strong> Improved system resilience with enhanced logging, monitoring via ELK stack.</li>
+      </ul>
+    </div>
+  
+    <div class="mb-6">
+      <div class="flex justify-between items-start">
+        <h3 class="font-semibold">AI Engineer</h3>
+        <span class="text-xs bg-[var(--primary)] text-white px-2 py-1 rounded">March 2023 – June 2023</span>
+      </div>
+      <p class="text-sm text-[var(--primary)] mb-2">HPT Vietnam Corporation</p>
+      <ul class="list-disc list-inside text-sm space-y-1 pl-2">
+        <li><strong>AI Model Development:</strong> Created an AI-powered malware detection system with 95% accuracy, reducing false positives by 30%.</li>
+        <li><strong>Optimization:</strong> Enhanced AI model efficiency and accuracy, reducing inference time by 25%.</li>
+        <li><strong>Documentation:</strong> Produced detailed reports for knowledge transfer and model reproducibility.</li>
+      </ul>
+    </div>
+  </section>
+  
+
+                <!-- Education -->
+                <section class="resume-section bg-[var(--card)] p-6 rounded-lg shadow-sm">
+    <h2 class="text-xl font-bold mb-4 border-b pb-2 border-[var(--primary)]">Education</h2>
+    
+    <div class="mb-6">
+      <div class="flex justify-between items-start">
+        <p class="text-sm text-[var(--primary)] font-semibold">Vietnamese-German University</p>
+        <span class="text-xs bg-[var(--primary)] text-white px-2 py-1 rounded">2019 – 2023</span>
+      </div>
+      <p class="text-sm">Bachelor’s Degree, Faculty of Computer Science</p>
+      <p class="text-sm text-[var(--muted)]">Binh Duong Province, Vietnam</p>
+    </div>
+  
+    <div>
+      <div class="flex justify-between items-start">
+        <p class="text-sm text-[var(--primary)] font-semibold">Frankfurt University of Applied Sciences</p>
+        <span class="text-xs bg-[var(--primary)] text-white px-2 py-1 rounded">2019 – 2023</span>
+      </div>
+      <p class="text-sm">Bachelor’s Degree, Faculty of Computer Science</p>
+      <p class="text-sm text-[var(--muted)]">Frankfurt, Germany</p>
+    </div>
+  </section>
+  
+
+                <!-- Projects -->
+                <section class="resume-section bg-[var(--card)] p-6 rounded-lg shadow-sm">
+    <h2 class="text-xl font-bold mb-4 border-b pb-2 border-[var(--primary)]">Projects</h2>
+  
+    <div class="mb-6">
+      <h3 class="font-semibold mb-1">
+        <a href="https://github.com/MinLee0210/Smart-Evaluation-Solution.git" class="hover:underline text-[var(--primary)]">
+          Smart Evaluation Solution
+        </a>
+      </h3>
+      <p class="text-sm mb-2">
+        An AI-powered brand analysis platform that processes multimodal data (text, images, audio, video) to evaluate brand perception and sentiment.
+      </p>
+      <ul class="list-disc list-inside text-sm space-y-1 pl-2 mb-2">
+        <li><strong>AI-Driven Insights:</strong> Led a team of 4 to develop a brand-awareness evaluation system leveraging multimodal deep learning.</li>
+        <li><strong>Cloud Scalability:</strong> Integrated Google Cloud AI services for real-time processing and high availability.</li>
+        <li><strong>Impact:</strong> Achieved 90% accuracy in brand mention detection and 85% sentiment classification accuracy.</li>
+      </ul>
+      <div class="flex flex-wrap gap-2">
+        <span class="text-xs bg-[var(--secondary)] bg-opacity-20 px-2 py-1 rounded">Streamlit</span>
+        <span class="text-xs bg-[var(--secondary)] bg-opacity-20 px-2 py-1 rounded">Python</span>
+        <span class="text-xs bg-[var(--secondary)] bg-opacity-20 px-2 py-1 rounded">Google Cloud</span>
+        <span class="text-xs bg-[var(--secondary)] bg-opacity-20 px-2 py-1 rounded">Ngrok</span>
+      </div>
+    </div>
+  
+    <div class="mb-6">
+      <h3 class="font-semibold mb-1">
+        <a href="https://github.com/MinLee0210/NeuralNotes.git" class="hover:underline text-[var(--primary)]">
+          NeuralNotes
+        </a>
+      </h3>
+      <p class="text-sm mb-2">
+        A deep learning project that explores AI-assisted music composition and ideation using neural networks.
+      </p>
+      <ul class="list-disc list-inside text-sm space-y-1 pl-2 mb-2">
+        <li><strong>AI Composition:</strong> Created a system that generates music using PyTorch-trained neural models.</li>
+        <li><strong>Scalable APIs:</strong> Deployed via FastAPI for real-time inference and integration.</li>
+        <li><strong>Creative Impact:</strong> Contributed to research on AI-enhanced creative workflows in music production.</li>
+      </ul>
+      <div class="flex flex-wrap gap-2">
+        <span class="text-xs bg-[var(--secondary)] bg-opacity-20 px-2 py-1 rounded">FastAPI</span>
+        <span class="text-xs bg-[var(--secondary)] bg-opacity-20 px-2 py-1 rounded">PyTorch</span>
+        <span class="text-xs bg-[var(--secondary)] bg-opacity-20 px-2 py-1 rounded">MongoDB</span>
+      </div>
+    </div>
+  
+    <div>
+      <h3 class="font-semibold mb-1">Tech Blogging & Knowledge Sharing</h3>
+      <p class="text-sm mb-2">
+        Writing technical blogs in both English and Vietnamese across platforms including Medium, Substack, and Dev.to.
+      </p>
+      <ul class="list-disc list-inside text-sm space-y-1 pl-2 mb-2">
+        <li><strong>Multilingual Reach:</strong> Published articles in both English and Vietnamese to make technical content more accessible.</li>
+        <li><strong>Topics Covered:</strong> AI systems, generative models, MLOps pipelines, and real-time vision applications.</li>
+        <li><strong>Engagement:</strong> Attracted readers from multiple countries, fostering community learning and feedback.</li>
+      </ul>
+      <div class="flex flex-wrap gap-2">
+        <span class="text-xs bg-[var(--secondary)] bg-opacity-20 px-2 py-1 rounded">Medium</span>
+        <span class="text-xs bg-[var(--secondary)] bg-opacity-20 px-2 py-1 rounded">Substack</span>
+        <span class="text-xs bg-[var(--secondary)] bg-opacity-20 px-2 py-1 rounded">Dev.to</span>
+        <span class="text-xs bg-[var(--secondary)] bg-opacity-20 px-2 py-1 rounded">English</span>
+        <span class="text-xs bg-[var(--secondary)] bg-opacity-20 px-2 py-1 rounded">Vietnamese</span>
+      </div>
+    </div>
+  </section>
+  
+</div>
+
+            <!-- Right Column -->
+            <div class="space-y-8">
+                <!-- Skills -->
+                 <!-- adjust width if you want to increase skills percentage -->
+                 <section class="resume-section bg-[var(--card)] p-6 rounded-lg shadow-sm">
+    <h2 class="text-xl font-bold mb-4 border-b pb-2 border-[var(--primary)]">Technical Skills</h2>
+    
+    <div class="mb-4">
+      <p class="text-sm">
+        <strong>Programming Languages:</strong> Python, JavaScript, and Rust.
+      </p>
+    </div>
+    
+    <div class="mb-4">
+      <p class="text-sm">
+        <strong>Machine Learning & Deep Learning:</strong> PyTorch, TensorFlow, Hugging Face, ONNX.
+      </p>
+    </div>
+    
+    <div class="mb-4">
+      <p class="text-sm">
+        <strong>Big Data & Databases:</strong> MongoDB, Valkey/Redis, MilvusDB, and PostgreSQL.
+      </p>
+    </div>
+    
+    <div class="mb-4">
+      <p class="text-sm">
+        <strong>Crawling Tools:</strong> BeautifulSoup, Playwright/Selenium.
+      </p>
+    </div>
+    
+    <div class="mb-4">
+      <p class="text-sm">
+        <strong>Event-Streaming & Messaging Queues:</strong> RabbitMQ, Kafka, Fluvio.
+      </p>
+    </div>
+    
+    <div class="mb-4">
+      <p class="text-sm">
+        <strong>Development Framework & Deployment:</strong> FastAPI, Gin, Next.js, Docker.
+      </p>
+    </div>
+    
+    <div>
+      <p class="text-sm">
+        <strong>Task Management & Collaboration:</strong> Git, Odoo, Jira, Trello, Notion.
+      </p>
+    </div>
+  </section>
+  
+
+                <!-- Certifications -->
+                <section class="resume-section bg-[var(--card)] p-6 rounded-lg shadow-sm">
+    <h2 class="text-xl font-bold mb-4 border-b pb-2 border-[var(--primary)]">Certifications</h2>
+  
+    <div class="mb-4">
+      <h3 class="font-semibold text-sm">The 5th Artificial Intelligence (AI) Challenge</h3>
+      <p class="text-xs text-[var(--primary)]">Ho Chi Minh City – 2024</p>
+      <!-- <p class="text-sm mt-1">
+        <strong>Achievement:</strong> Developed an AI-powered event retrieval system that efficiently indexes and retrieves event-related data using vector search and semantic understanding. Designed a scalable pipeline for real-time query processing, improving search accuracy and response time.
+      </p> -->
+    </div>
+  
+    <div class="mb-4">
+      <h3 class="font-semibold text-sm">hackhcmc-2024 Hackathon – AngelHack</h3>
+      <p class="text-xs text-[var(--primary)]">Issued Jul 2024 · Expires Sep 2026</p>
+      <!-- <p class="text-sm mt-1">
+        <strong>Achievement:</strong> Developed an innovative machine learning solution during a 48-hour hackathon, working on LLMs, multi-agent systems, and real-time AI applications, achieving a top-5 finalist position.
+      </p> -->
+    </div>
+  
+    <div class="mb-4">
+      <h3 class="font-semibold text-sm">IELTS – IDP Education Ltd</h3>
+      <p class="text-xs text-[var(--primary)]">Issued Apr 2024 · Expires Apr 2026</p>
+      <!-- <p class="text-sm mt-1">
+        <strong>Achievement:</strong> Attained a score of 6.5, demonstrating strong English proficiency necessary for technical and professional communication.
+      </p> -->
+    </div>
+  
+    <div>
+      <h3 class="font-semibold text-sm">Introduction to Generative AI – Google Cloud</h3>
+      <p class="text-xs text-[var(--primary)]">Issued June 22, 2024</p>
+      <!-- <p class="text-sm mt-1">
+        <strong>Achievement:</strong> Successfully built and fine-tuned a custom LLM using Google Cloud AI tools, enhancing text generation accuracy by 20%. Deployed a Generative AI model for content creation and summarization, showcasing practical applications of LLMs.
+      </p> -->
+    </div>
+  </section>
+  
+
+                <!-- Languages -->
+                <section class="resume-section bg-[var(--card)] p-6 rounded-lg shadow-sm">
+    <h2 class="text-xl font-bold mb-4 border-b pb-2 border-[var(--primary)]">Languages</h2>
+    
+    <div class="mb-3">
+        <div class="flex justify-between text-sm mb-1">
+            <span>Vietnamese</span>
+            <!-- <span>Native</span> -->
+        </div>
+        <!-- <div class="skill-bar bg-gray-200">
+            <div class="progress bg-[var(--primary)]" style="width: 100%"></div>
+        </div> -->
+    </div>
+    
+    <div class="mb-3">
+        <div class="flex justify-between text-sm mb-1">
+            <span>English</span>
+            <!-- <span>Professional</span> -->
+        </div>
+        <!-- <div class="skill-bar bg-gray-200">
+            <div class="progress bg-[var(--primary)]" style="width: 80%"></div>
+        </div> -->
+    </div>
+    
+    <div>
+        <div class="flex justify-between text-sm mb-1">
+            <span>German</span>
+            <!-- <span>Beginner</span> -->
+        </div>
+        <!-- <div class="skill-bar bg-gray-200">
+            <div class="progress bg-[var(--primary)]" style="width: 60%"></div>
+        </div> -->
+    </div>
+</section>
+                
+                <!-- Awards -->
+                <!-- <section class="resume-section bg-[var(--card)] p-6 rounded-lg shadow-sm">
+    <h2 class="text-xl font-bold mb-4 border-b pb-2 border-[var(--primary)]">Awards</h2>
+    
+    <div class="mb-3">
+        <h3 class="font-semibold text-sm">Employee of the Year</h3>
+        <p class="text-xs text-[var(--primary)]">TechCorp Inc. - 2021</p>
+    </div>
+    
+    <div>
+        <h3 class="font-semibold text-sm">Best Hackathon Project</h3>
+        <p class="text-xs text-[var(--primary)]">DevCon 2019</p>
+    </div>
+</section> -->
+            </div>
+            
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-8 text-center text-xs opacity-70">
+            <p>&copy; 2025 . All rights reserved.</p>
+        </footer>
+
+    </div>
+    <script src="js/script.js"></script>
+</body>
 </html>

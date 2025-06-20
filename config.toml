@@ -1,6 +1,6 @@
 # The URL the site will be built for
 base_url = "https://MinLee0210.github.io"
-theme = "neovim-theme"
+theme = "BelResume"
 build_search_index = true
 
 [markdown]
