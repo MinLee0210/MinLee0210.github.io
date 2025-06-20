@@ -4,7 +4,7 @@ title="README"
 
 # Minh's AI Engineering Portfolio
 
-## About Me 👋
+## About Me 
 
 I'm Minh, an AI Engineer with over a year of experience in natural language processing (NLP) and generative AI, passionate about unlocking the cutting-edge potential of AI. My work focuses on building innovative tools and diving into the latest research to push the boundaries of what AI can achieve. This portfolio is my digital lab 🔬, showcasing code explorations, research, and projects that challenge the status quo.
 
@@ -20,8 +20,8 @@ I'm Minh, an AI Engineer with over a year of experience in natural language proc
 
 ## Education
 
-Vietnamese-German University, Binh Duong Province, VietnamBachelor’s Degree, Faculty of Computer Science, 2019 - 2023
-Frankfurt University of Applied Sciences, Frankfurt, GermanyBachelor’s Degree, Faculty of Computer Science, 2019 - 2023
++ Vietnamese-German University: Binh Duong Province, VietnamBachelor’s Degree, Faculty of Computer Science, 2019 - 2023
++ Frankfurt University of Applied Sciences: Frankfurt, GermanyBachelor’s Degree, Faculty of Computer Science, 2019 - 2023
 
 ## What I Do
 

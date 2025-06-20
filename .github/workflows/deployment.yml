@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]  # or master, depending on your default branch
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -13,6 +13,6 @@ jobs:
       - name: Setup Zola
         uses: shalzz/zola-deploy-action@v0.17.1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Set GITHUB_TOKEN as an environment variable
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          args: --build-dir public  # Use args to specify the build directory
+          args: --build-dir public
