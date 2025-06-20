@@ -1,16 +1,13 @@
 # The URL the site will be built for
-base_url = "https://minlee0210.github.io"
+base_url = "https://MinLee0210.github.io"
 theme = "BelResume"
 build_search_index = true
 
 [markdown]
 highlight_code = true
-extra_syntaxes_and_themes = ["highlight_themes"]
-highlight_theme = "tokyonight"
 
 [extra]
 
 blog_name = "MinLee0210"
-background-image = "assets/background.jpg"
 config_js = "config.js"
 custom_css = "style.css"
