@@ -1,0 +1,17 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]  # or master, depending on your default branch
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Zola
+        uses: shalzz/zola-deploy-action@v0.17.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          build_dir: public
