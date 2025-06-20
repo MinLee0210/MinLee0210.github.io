@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 Allow: /
-Sitemap: https://MinLee0210.github.io/sitemap.xml
+Sitemap: https://minlee0210.github.io/sitemap.xml
