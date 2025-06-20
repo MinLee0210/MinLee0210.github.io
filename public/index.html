@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MinLee0210</title>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"
+    integrity="sha256-WCzAhd2P6gRJF9Hv3oOOd+hFJi/QJbv+Azn4CGB8gfY=" crossorigin="anonymous" defer></script>
+  <script src="/js/index.js" defer></script>
+  <script src="/js/prompt.js" defer></script>
+  <script src="/js/keyboard.js" defer></script>
+  <script src="/js/tab.js" defer></script>
+  <script src="/js/commands.js" defer></script>
+  <script src="/js/config.js" defer></script><script src="/config.js"></script><link rel="stylesheet" href="/css/base.css"><link rel="stylesheet" href="style.css"></head><body onkeydown='exec(event)' style='background-image: url("/assets/background.jpg");'><main>
+      <div class="files" id="files" tabindex="0">
+<ul>
+
+  <li class="file">
+    <span><a href='https://MinLee0210.github.io/blog/'
+      tabindex="-2">  Blog</a></span>
+  </li><li class="file">
+    <span><a href='https://MinLee0210.github.io/contact/'
+      tabindex="-3">  Contact</a></span>
+  </li><li class="file">
+    <span><a href='https://MinLee0210.github.io/readme/'
+      tabindex="-4">  README</a></span>
+  </li>
+</ul>
+</div>
+      <div class="viewer " id="viewer" tabindex="0">
+        <div class="tab">
+<div class="file-manager" onclick='document.getElementById("files").classList.toggle("open"); document.getElementById("content").classList.toggle("close")'> </div>
+<ul id="tabs">
+</ul>
+
+
+</div>
+        <div class="content" id="content"><h1 id="minh-s-ai-engineering-portfolio">Minh's AI Engineering Portfolio</h1>
+<h2 id="about-me-wave">About Me 👋</h2>
+<p>I'm Minh, an AI Engineer with over a year of experience in natural language processing (NLP) and generative AI, passionate about unlocking the cutting-edge potential of AI. My work focuses on building innovative tools and diving into the latest research to push the boundaries of what AI can achieve. This portfolio is my digital lab 🔬, showcasing code explorations, research, and projects that challenge the status quo.</p>
+<h2 id="technical-expertise">Technical Expertise</h2>
+<ul>
+<li>Programming Languages: Python, JavaScript, Rust</li>
+<li>Machine Learning &amp; Deep Learning: PyTorch, TensorFlow, Hugging Face, ONNX</li>
+<li>Big Data &amp; Databases: MongoDB, Valkey/Redis, MilvusDB, PostgreSQL</li>
+<li>Crawling Tools: BeautifulSoup, Playwright/Selenium</li>
+<li>Event-Streaming &amp; Messaging Queues: RabbitMQ, Kafka, Fluvio</li>
+<li>Development Frameworks &amp; Deployment: FastAPI, Gin, Next.js, Docker</li>
+<li>Task Management &amp; Collaboration: Git, Odoo, Jira, Trello, Notion</li>
+</ul>
+<h2 id="education">Education</h2>
+<p>Vietnamese-German University, Binh Duong Province, VietnamBachelor’s Degree, Faculty of Computer Science, 2019 - 2023
+Frankfurt University of Applied Sciences, Frankfurt, GermanyBachelor’s Degree, Faculty of Computer Science, 2019 - 2023</p>
+<h2 id="what-i-do">What I Do</h2>
+<ul>
+<li>AI Frontiers 🤖: I explore cutting-edge AI through hands-on projects, including sentiment analysis, text classification, and chatbots using architectures like BERT and GPT. My work includes text preprocessing, model optimization, production deployment, and web crawling for high-quality training data.</li>
+<li>Curated Gems 💥: I share impactful resources like research papers, blog posts, and tutorials to make AI accessible and keep you ahead of the curve.</li>
+<li>Building the Future 🚀: Currently, I’m developing a Retrieval-Augmented Generation (RAG) system to revolutionize document summarization, blending innovation with practical application.</li>
+</ul>
+<h2 id="let-s-collaborate">Let’s Collaborate!</h2>
+<p>I thrive in cross-functional teams and communicate fluently in English. Have a challenging AI project or a hot topic you’d like to explore? Reach out—I’m always ready to dive into new possibilities and build the future of AI!</p>
+<p>P.S. Check out my projects and connect with me to discuss groundbreaking ideas in AI!</p>
+
+        </div>
+      </div>
+      <div class="prompt" id="terminal"><input
+    type="text"
+    id="setter"
+    onkeydown="writeit(this, event);moveIt(this.value.length, event)"
+    onchange="writeit(this, event)"
+    onkeyup="writeit(this, event)"
+    onkeypress="writeit(this, event);"
+    >
+<label for="setter" id="writer"> </label><b class="cursor" id="cursor"></b></div>
+    </main>
+  </body>
+
+</html>
