@@ -252,7 +252,7 @@ a:hover {
   line-height: 1.7;
   color: var(--ink);
   margin: 0 0 1.75rem;
-  max-width: 34rem;
+  max-width: 46rem;
 }
 
 .contact {
@@ -433,8 +433,7 @@ a.tile:hover { border-color: var(--faint); }
 .section-note {
   font-size: 0.9375rem;
   color: var(--muted);
-  margin: -0.75rem 0 2rem;
-  max-width: 34rem;
+  margin: -0.75rem 0 1.5rem;
 }
 
 .entry {
