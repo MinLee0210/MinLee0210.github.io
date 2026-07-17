@@ -1,0 +1,819 @@
+/* ---------------------------------------------------------------
+   Minh Lê Đức — portfolio
+   Newsreader (display) + Inter (text), bento tiles, no framework.
+   --------------------------------------------------------------- */
+
+:root {
+  --bg: #fcfbf9;
+  --ink: #1c1b19;
+  --muted: #6f6d68;
+  --faint: #93908a;
+  --rule: #e4e1db;
+  --accent: #2f5d8a;
+  --tag-bg: #f2f0ec;
+  --card: #ffffff;
+
+  --measure: 64rem;
+  --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* System mono — carries the technical accents at zero download cost. */
+  --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+.dark {
+  --bg: #121110;
+  --ink: #e9e7e2;
+  --muted: #9a978f;
+  --faint: #78756e;
+  --rule: #2b2926;
+  --accent: #8fb5e0;
+  --tag-bg: #1e1c1a;
+  --card: #191817;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 10;
+  background: var(--bg);
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--rule);
+}
+
+/* --- Shell: sticky rail + content --------------------------------- */
+
+.shell {
+  display: grid;
+  grid-template-columns: 12rem minmax(0, 1fr);
+  gap: 3.5rem;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.main {
+  max-width: var(--measure);
+  min-width: 0;
+}
+
+.rail-inner {
+  position: sticky;
+  top: 5rem;
+}
+
+.rail-name {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.rail-role {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin: 0.35rem 0 2rem;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin-bottom: 2rem;
+}
+
+.nav a {
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.25rem 0;
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  border: 0;
+}
+
+.nav-num {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.nav a:hover {
+  color: var(--ink);
+}
+
+.nav a.active {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.nav a.active .nav-num {
+  color: var(--accent);
+}
+
+.rail-links {
+  list-style: none;
+  margin: 0 0 2rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.8125rem;
+}
+
+.rail-links a {
+  color: var(--muted);
+}
+
+.rail-links a:hover {
+  color: var(--accent);
+}
+
+/* Collapse the rail into a plain header on narrow screens. */
+@media (max-width: 62rem) {
+  .shell {
+    /* 1fr, not minmax(0, measure): a fixed max would size the track to its
+       growth limit and overflow narrow viewports. */
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding: 3rem 1.5rem;
+  }
+
+  .rail-inner {
+    position: static;
+  }
+
+  .rail {
+    margin-bottom: 2.5rem;
+  }
+
+  .rail-name,
+  .rail-role {
+    display: none;
+  }
+
+  .nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .nav-num {
+    display: none;
+  }
+
+  .rail-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+    margin-bottom: 0;
+  }
+}
+
+/* --- Typography ------------------------------------------------ */
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+a:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
+/* --- Header ---------------------------------------------------- */
+
+.masthead {
+  margin-bottom: 4rem;
+}
+
+.masthead h1 {
+  font-size: clamp(2.5rem, 7vw, 3.25rem);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.masthead .role {
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 1.75rem;
+}
+
+.bio {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--ink);
+  margin: 0 0 1.75rem;
+  max-width: 46rem;
+}
+
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* --- Bento tiles ----------------------------------------------- */
+
+.bento {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+  /* Tiles hug their content rather than stretching to the tallest in the row. */
+  align-items: start;
+}
+
+/* The glance band reads better as an even band. */
+.glance {
+  align-items: stretch;
+}
+
+.tile {
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 1.25rem;
+  background: var(--card);
+  min-width: 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.tile > :first-child { margin-top: 0; }
+.tile > :last-child { margin-bottom: 0; }
+
+/* Spans. Every tile defaults to half-width. */
+.tile { grid-column: span 2; }
+.span-1 { grid-column: span 1; }
+.span-2 { grid-column: span 2; }
+.span-3 { grid-column: span 3; }
+.span-4 { grid-column: span 4; }
+
+/* The glance band's tiles centre their content; content tiles do not. */
+.glance .tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  min-height: 5.5rem;
+}
+
+.tile p { margin: 0 0 0.5rem; }
+
+.tile-key {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.tile-lead {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  line-height: 1.15;
+}
+
+.tile-num {
+  font-family: var(--mono);
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.tile-sub {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.tile .dim { color: var(--faint); }
+
+a.tile:hover { border-color: var(--faint); }
+
+.tile-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.875rem;
+}
+
+/* --- Rail tiles ------------------------------------------------- */
+
+.rail-box {
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--card);
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Two columns on tablets, one on phones. Every span collapses so a tile
+   can never demand more columns than the grid has. */
+@media (max-width: 62rem) {
+  .bento {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .span-1,
+  .span-3,
+  .span-4,
+  .tile {
+    grid-column: span 2;
+  }
+
+  .span-1 {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 34rem) {
+  .bento {
+    grid-template-columns: 1fr;
+  }
+
+  .span-1,
+  .span-2,
+  .span-3,
+  .span-4,
+  .tile {
+    grid-column: span 1;
+  }
+}
+
+/* --- Code snippets --------------------------------------------- */
+
+.snippet {
+  margin: 0 0 0.75rem;
+  padding: 0.875rem 1rem;
+  background: var(--tag-bg);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.snippet code {
+  font-family: var(--mono);
+  font-size: inherit;
+  white-space: pre;
+  color: var(--ink);
+}
+
+.snippet .c {
+  color: var(--faint);
+}
+
+/* --- Sections -------------------------------------------------- */
+
+.section {
+  margin-bottom: 3rem;
+}
+
+.section > h2 {
+  font-size: 1.5rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 1.75rem;
+}
+
+.section-note {
+  font-size: 0.9375rem;
+  color: var(--muted);
+  margin: -0.75rem 0 1.5rem;
+}
+
+.entry {
+  margin-bottom: 2.5rem;
+}
+
+.entry:last-child {
+  margin-bottom: 0;
+}
+
+/* Inside a tile the tile owns the spacing. */
+.tile .entry {
+  margin-bottom: 0;
+}
+
+.tile .entry-head h3 {
+  font-size: 1rem;
+}
+
+.tile .snippet {
+  font-size: 0.75rem;
+}
+
+/* Title line: heading left, date/meta right, aligned on the baseline. */
+.entry-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.15rem;
+}
+
+.entry-head h3 {
+  font-size: 1.125rem;
+  font-family: var(--sans);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.meta {
+  font-size: 0.8125rem;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.org {
+  font-size: 0.9375rem;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+}
+
+.entry p {
+  margin: 0 0 0.75rem;
+}
+
+.entry ul {
+  margin: 0 0 0.875rem;
+  padding-left: 1.1rem;
+  font-size: 0.9375rem;
+}
+
+.entry li {
+  margin-bottom: 0.35rem;
+  padding-left: 0.2rem;
+}
+
+.entry li::marker {
+  color: var(--faint);
+}
+
+.entry strong {
+  font-weight: 600;
+}
+
+/* --- Version badge, install block, link rows -------------------- */
+
+.ver {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.install {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: var(--tag-bg);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  margin: 0 0 0.875rem;
+  overflow-x: auto;
+}
+
+.install code {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.install code::before {
+  content: '$ ';
+  color: var(--faint);
+}
+
+.copy {
+  font-family: var(--sans);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--faint);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0.15rem 0.25rem;
+  flex-shrink: 0;
+}
+
+.copy:hover {
+  color: var(--accent);
+}
+
+p.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.8125rem;
+  margin: 0.875rem 0 0;
+}
+
+p.links a {
+  color: var(--muted);
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.875em;
+}
+
+/* A deliberate gap, marked as one, rather than an entry that looks unfinished. */
+.placeholder {
+  font-size: 0.875rem;
+  font-style: italic;
+  color: var(--faint);
+}
+
+/* --- Tags ------------------------------------------------------ */
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag {
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  background: var(--tag-bg);
+  border-radius: 3px;
+  padding: 0.15rem 0.5rem;
+  white-space: nowrap;
+}
+
+/* --- Theme toggle ---------------------------------------------- */
+
+.toggle {
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: var(--muted);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.toggle:hover {
+  color: var(--ink);
+  border-color: var(--faint);
+}
+
+.toggle svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+/* --- Footer ---------------------------------------------------- */
+
+.foot {
+  margin-top: 5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.8125rem;
+  color: var(--faint);
+}
+
+/* --- Print: this is a résumé, so Ctrl-P has to produce paper ---- */
+
+/* --- Print: this is a resume, so Ctrl-P has to produce paper ---- */
+
+@media print {
+  :root {
+    --bg: #fff;
+    --ink: #000;
+    --muted: #333;
+    --faint: #555;
+    --rule: #bbb;
+    --accent: #000;
+    --tag-bg: #fff;
+    --card: #fff;
+  }
+
+  /* Navigation, controls, and the sticky rail are screen furniture. */
+  .rail,
+  .toggle,
+  .copy,
+  .skip,
+  .foot,
+  .section-note {
+    display: none;
+  }
+
+  /* These glance tiles restate Experience, Libraries, and Skills, which all
+     appear in full below. On one scrollable page that reads as a summary;
+     on paper it is just duplication. */
+  .glance .tile-now,
+  .glance .tile-count,
+  .glance .tile-stack {
+    display: none;
+  }
+
+  .shell {
+    display: block;
+    max-width: none;
+    padding: 0;
+  }
+
+  .main {
+    max-width: none;
+  }
+
+  body {
+    font-size: 9.5pt;
+    line-height: 1.4;
+  }
+
+  .masthead {
+    margin-bottom: 1rem;
+  }
+
+  .masthead h1 {
+    font-size: 22pt;
+  }
+
+  .bio {
+    max-width: none;
+    font-size: 9.5pt;
+  }
+
+  /* Tiles become plain stacked blocks; borders would checkerboard the page. */
+  .bento {
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .tile {
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    background: none;
+    margin-bottom: 0.6rem;
+  }
+
+  /* Never strand a heading at the foot of a page. */
+  .entry-head,
+  .entry-head + .org {
+    break-after: avoid;
+  }
+
+  /* The glance band is the only place languages and links now live. */
+  .glance {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 1.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.4rem 0;
+    margin-bottom: 1rem;
+  }
+
+  /* The surviving two tiles sit side by side; their span-2 would stack them. */
+  .glance .tile {
+    min-height: 0;
+    margin-bottom: 0;
+    grid-column: span 1;
+  }
+
+  .section {
+    margin-bottom: 1rem;
+  }
+
+  .section > h2 {
+    font-size: 13pt;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.25rem;
+    break-after: avoid;
+  }
+
+  /* Code samples are a screen affordance; on paper they cost pages. */
+  .snippet,
+  .install {
+    display: none;
+  }
+
+  .entry ul {
+    margin-bottom: 0.4rem;
+  }
+
+  /* Skills print as label-above-value, which burns a line per category.
+     On paper they read better as label/value rows. */
+  #skills .tile {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    gap: 0 1rem;
+    align-items: baseline;
+    margin-bottom: 0.15rem;
+  }
+
+  #skills .tile p {
+    margin: 0;
+  }
+
+  .tags,
+  p.links {
+    display: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+.tile-lead-sm {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.rail-foot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.rail-foot .rail-links {
+  margin: 0;
+}
+
+.nav.rail-box {
+  padding: 0.75rem 1rem;
+}
