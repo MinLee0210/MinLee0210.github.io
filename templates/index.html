@@ -3,72 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config.title }} — {{ config.extra.role }}</title>
-    <meta name="description" content="{{ config.description }}">
-    <meta property="og:type" content="profile">
-    <meta property="og:title" content="{{ config.title }} — {{ config.extra.role }}">
-    <meta property="og:description" content="{{ config.description }}">
-    <meta property="og:url" content="{{ config.base_url }}">
-    <meta name="twitter:card" content="summary">
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+
+  <title>{{ config.title }} — {{ config.extra.role }}</title>
+  <meta name="description" content="{{ config.description }}">
+
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="{{ config.title }} — {{ config.extra.role }}">
+  <meta property="og:description" content="{{ config.description }}">
+  <meta property="og:url" content="{{ config.base_url }}">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="{{ config.base_url }}">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='28' font-family='Georgia,serif'>M</text></svg>">
+
+  <!-- Fonts are self-hosted; unicode-range means only the needed subsets load. -->
+  <link rel="preload" href="{{ get_url(path='fonts/inter-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ get_url(path='fonts/newsreader-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{ get_url(path='css/fonts.css') }}">
+  <link rel="stylesheet" href="{{ get_url(path='css/style.css') }}">
+
+  <script>
+    // Set the theme before first paint so dark mode never flashes white.
+    (function () {
+      var saved = localStorage.getItem('theme');
+      var dark = saved === null
+        ? window.matchMedia('(prefers-color-scheme: dark)').matches
+        : saved === 'dark';
+      if (dark) document.documentElement.classList.add('dark');
+    })();
+  </script>
 </head>
-<body class="bg-[var(--background)] text-[var(--text)] transition-colors duration-300 font-sans">
-    <div class="container mx-auto px-4 py-8 max-w-5xl">
-        <div class="flex justify-end mb-6 no-print">
-            <button id="theme-toggle" type="button" onclick="toggleDarkMode()" aria-pressed="false"
-                    aria-label="Switch to dark mode"
-                    class="p-2 rounded-md border border-[var(--border)] text-[var(--muted)] hover:text-[var(--text)] transition-colors">
-                <i id="theme-toggle-icon" class="fas fa-moon text-sm"></i>
-            </button>
-        </div>
 
-        <!-- Header -->
-        {% include "partials/header.html" %}
+<body>
+  <button id="theme-toggle" class="toggle" type="button" aria-label="Switch theme" aria-pressed="false">
+    <svg id="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" />
+    </svg>
+  </button>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <main class="page">
+    {% include "partials/header.html" %}
 
-            <!-- Left Column -->
-            <div class="lg:col-span-2 space-y-8">
-                <!-- Experience -->
-                {% include "partials/experience.html" %}
+    {% include "partials/experience.html" %}
+    {% include "partials/libraries.html" %}
+    {% include "partials/projects.html" %}
+    {% include "partials/skills.html" %}
+    {% include "partials/education.html" %}
+    {% include "partials/certifications.html" %}
+    {% include "partials/languages.html" %}
+    {# {% include "partials/awards.html" %} #}
 
-                <!-- Education -->
-                {% include "partials/education.html" %}
+    <footer class="foot">
+      <p>&copy; {{ now() | date(format="%Y") }} {{ config.title }}</p>
+    </footer>
+  </main>
 
-                <!-- Open Source Libraries -->
-                {% include "partials/libraries.html" %}
-
-                <!-- Projects -->
-                {% include "partials/projects.html" %}
-            </div>
-
-            <!-- Right Column -->
-            <div class="space-y-8">
-                <!-- Skills -->
-                 <!-- adjust width if you want to increase skills percentage -->
-                 {% include "partials/skills.html" %}
-
-                <!-- Certifications -->
-                {% include "partials/certifications.html" %}
-
-                <!-- Languages -->
-                {% include "partials/languages.html" %}
-                
-                <!-- Awards -->
-                <!-- {% include "partials/awards.html" %} -->
-            </div>
-            
-        </div>
-
-        <!-- Footer -->
-        <footer class="mt-8 text-center text-xs opacity-70">
-            <p>&copy; {{ now() | date(format="%Y") }} {{ config.title }}. All rights reserved.</p>
-        </footer>
-
-    </div>
-    <script src="js/script.js"></script>
+  <script src="{{ get_url(path='js/script.js') }}"></script>
 </body>
 </html>
