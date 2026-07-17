@@ -258,6 +258,117 @@ a:hover {
   list-style: none;
 }
 
+/* --- Bento: an "at a glance" band under the masthead ----------- */
+
+.bento {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 4rem;
+}
+
+.tile {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1rem;
+  background: var(--card, transparent);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  min-height: 5.5rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.tile p {
+  margin: 0;
+}
+
+.tile-now {
+  grid-column: span 2;
+}
+
+.tile-wide {
+  grid-column: span 2;
+}
+
+.tile-key {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.tile-lead {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  line-height: 1.15;
+}
+
+.tile-num {
+  font-family: var(--mono);
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.tile-sub {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.tile .dim {
+  color: var(--faint);
+}
+
+a.tile:hover {
+  border-color: var(--faint);
+}
+
+.tile-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.875rem;
+}
+
+@media (max-width: 34rem) {
+  .bento {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tile-now,
+  .tile-wide {
+    grid-column: span 2;
+  }
+}
+
+/* --- Code snippets --------------------------------------------- */
+
+.snippet {
+  margin: 0 0 0.75rem;
+  padding: 0.875rem 1rem;
+  background: var(--tag-bg);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.snippet code {
+  font-family: var(--mono);
+  font-size: inherit;
+  white-space: pre;
+  color: var(--ink);
+}
+
+.snippet .c {
+  color: var(--faint);
+}
+
 /* --- Sections -------------------------------------------------- */
 
 .section {

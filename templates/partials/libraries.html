@@ -33,6 +33,18 @@
       <li><strong>Numerical rigor:</strong> Joseph-form updates and Cholesky stabilization, with RMSE, NEES, NIS, and log-likelihood diagnostics built in.</li>
     </ul>
 
+    <pre class="snippet"><code>import numpy as np
+from kalbee import KalmanFilter
+
+F = np.array([[1, 1], [0, 1]])   <span class="c"># constant-velocity model</span>
+H = np.array([[1, 0]])           <span class="c"># observe position only</span>
+
+kf = KalmanFilter(
+    np.zeros((2, 1)), np.eye(2), F, np.eye(2) * 0.01, H, np.array([[0.1]])
+)
+kf.predict()
+kf.update(np.array([[1.2]]))     <span class="c"># kf.x -> [[1.14], [0.57]]</span></code></pre>
+
     <div class="install">
       <code>pip install kalbee</code>
       <button class="copy" type="button" data-copy="pip install kalbee" aria-label="Copy install command">Copy</button>
@@ -69,6 +81,17 @@
       <li><strong>Rust core, Python surface:</strong> Compiled via PyO3 and shipped to both registries, so it is equally at home in a notebook or a Rust binary.</li>
     </ul>
 
+    <pre class="snippet"><code>from colonyx import AutoColony
+
+def sphere(x):
+    return sum(xi * xi for xi in x)
+
+opt = AutoColony(mode="pso", n_iterations=150, random_state=42)
+opt.fit(sphere, bounds=[(-5, 5)] * 3)
+
+opt.predict()   <span class="c"># best position -> ~[0, 0, 0]</span>
+opt.score()     <span class="c"># objective value -> ~0.004</span></code></pre>
+
     <div class="install">
       <code>pip install colonyx</code>
       <button class="copy" type="button" data-copy="pip install colonyx" aria-label="Copy install command">Copy</button>
@@ -104,6 +127,19 @@
       <li><strong>Historical fidelity:</strong> Models the rotor, reflector, and plugboard mechanics of the M3 and M4 machines.</li>
       <li><strong>Two audiences:</strong> A Rust crate for speed, plus Python bindings for teaching, tinkering, and cryptanalysis experiments.</li>
     </ul>
+
+    <pre class="snippet"><code>use enigmar::EnigmaBuilder;
+
+let mut machine = EnigmaBuilder::new()
+    .rotor("I", 0, 0)      <span class="c">// type, position, ring setting</span>
+    .rotor("II", 0, 0)
+    .rotor("III", 0, 0)
+    .reflector("B")
+    .plugboard("AV BS CG DL FU HZ IN KM OW RX")
+    .build()
+    .unwrap();
+
+let ciphertext = machine.process_string("HELLOWORLD");</code></pre>
 
     <div class="install">
       <code>cargo add enigmar</code>
