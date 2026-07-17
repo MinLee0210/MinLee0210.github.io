@@ -15,120 +15,111 @@
     something I needed for my own work and grew into a tool I keep sharpening.
   </p>
 
-  <article class="entry">
-    <div class="entry-head">
-      <h3><a href="https://pypi.org/project/kalbee/">kalbee</a></h3>
-      <span class="meta">
-        {%- if kalbee %}<span class="ver">v{{ kalbee.info.version }}</span> · {% endif -%}
-        Python
-      </span>
-    </div>
-    <p>
-      A clean, modular toolkit for Kalman filtering and state estimation, bringing ten filter
-      families together under one consistent API.
-    </p>
-    <ul>
-      <li><strong>Breadth:</strong> Kalman, Extended, Unscented, Particle, Ensemble, Information, Adaptive, and Square-Root filters, plus an RTS smoother for post-processing.</li>
-      <li><strong>Tracking:</strong> Multi-object tracking with Hungarian association, track lifecycle management, and ready-made constant-velocity, constant-acceleration, and coordinated-turn motion models.</li>
-      <li><strong>Numerical rigor:</strong> Joseph-form updates and Cholesky stabilization, with RMSE, NEES, NIS, and log-likelihood diagnostics built in.</li>
-    </ul>
+  <div class="bento">
+    <article class="tile entry span-2">
+      <div class="entry-head">
+        <h3><a href="https://pypi.org/project/kalbee/">kalbee</a></h3>
+        <span class="meta">
+          {%- if kalbee %}<span class="ver">v{{ kalbee.info.version }}</span> · {% endif -%}
+          Python
+        </span>
+      </div>
+      <p>
+        Kalman filtering and state estimation — ten filter families under one consistent API.
+      </p>
+      <ul>
+        <li><strong>Breadth:</strong> Kalman, Extended, Unscented, Particle, Ensemble, Information, Adaptive, and Square-Root filters, plus an RTS smoother.</li>
+        <li><strong>Tracking:</strong> Multi-object tracking with Hungarian association and ready-made motion models.</li>
+        <li><strong>Numerical rigor:</strong> Joseph-form updates and Cholesky stabilization, with RMSE, NEES, and NIS diagnostics.</li>
+      </ul>
 
-    <pre class="snippet"><code>import numpy as np
+      <pre class="snippet"><code>import numpy as np
 from kalbee import KalmanFilter
 
-F = np.array([[1, 1], [0, 1]])   <span class="c"># constant-velocity model</span>
-H = np.array([[1, 0]])           <span class="c"># observe position only</span>
-
 kf = KalmanFilter(
-    np.zeros((2, 1)), np.eye(2), F, np.eye(2) * 0.01, H, np.array([[0.1]])
+    np.zeros((2, 1)),             <span class="c"># state</span>
+    np.eye(2),                    <span class="c"># covariance</span>
+    np.array([[1, 1], [0, 1]]),   <span class="c"># F: constant velocity</span>
+    np.eye(2) * 0.01,             <span class="c"># Q</span>
+    np.array([[1, 0]]),           <span class="c"># H: observe position</span>
+    np.array([[0.1]]),            <span class="c"># R</span>
 )
 kf.predict()
-kf.update(np.array([[1.2]]))     <span class="c"># kf.x -> [[1.14], [0.57]]</span></code></pre>
+kf.update(np.array([[1.2]]))
+<span class="c"># kf.x -> [[1.14], [0.57]]</span></code></pre>
 
-    <div class="install">
-      <code>pip install kalbee</code>
-      <button class="copy" type="button" data-copy="pip install kalbee" aria-label="Copy install command">Copy</button>
-    </div>
+      <div class="install">
+        <code>pip install kalbee</code>
+        <button class="copy" type="button" data-copy="pip install kalbee" aria-label="Copy install command">Copy</button>
+      </div>
 
-    <ul class="tags">
-      <li class="tag">Python</li>
-      <li class="tag">State Estimation</li>
-      <li class="tag">Sensor Fusion</li>
-      <li class="tag">Tracking</li>
-    </ul>
+      <p class="links">
+        <a href="https://pypi.org/project/kalbee/">PyPI</a>
+        <a href="https://github.com/MinLee0210/kalbee">Source</a>
+      </p>
+    </article>
 
-    <p class="links">
-      <a href="https://pypi.org/project/kalbee/">PyPI</a>
-      <a href="https://github.com/MinLee0210/kalbee">Source</a>
-    </p>
-  </article>
+    <article class="tile entry span-2">
+      <div class="entry-head">
+        <h3><a href="https://pypi.org/project/colonyx/">colonyx</a></h3>
+        <span class="meta">
+          {%- if colonyx %}<span class="ver">v{{ colonyx.info.version }}</span> · {% endif -%}
+          Rust + Python
+        </span>
+      </div>
+      <p>
+        Rust-backed swarm intelligence optimization for Python — a Pythonic interface over a
+        compiled core.
+      </p>
+      <ul>
+        <li><strong>Eleven algorithms:</strong> Ant Colony, Particle Swarm, Artificial Bee Colony, Grey Wolf, Firefly, Simulated Annealing, Cuckoo Search, Bat, Glowworm, Bacterial Foraging, and Differential Evolution.</li>
+        <li><strong>One entry point:</strong> A unified <code>AutoColony</code> API covers continuous optimization and discrete problems such as the Traveling Salesman.</li>
+        <li><strong>Rust core:</strong> Compiled via PyO3 and shipped to both registries.</li>
+      </ul>
 
-  <article class="entry">
-    <div class="entry-head">
-      <h3><a href="https://pypi.org/project/colonyx/">colonyx</a></h3>
-      <span class="meta">
-        {%- if colonyx %}<span class="ver">v{{ colonyx.info.version }}</span> · {% endif -%}
-        Rust + Python
-      </span>
-    </div>
-    <p>
-      Rust-backed swarm intelligence optimization for Python — a Pythonic interface over a compiled
-      core, so the ergonomics never cost you the runtime.
-    </p>
-    <ul>
-      <li><strong>Eleven algorithms:</strong> Ant Colony, Particle Swarm, Artificial Bee Colony, Grey Wolf, Firefly, Simulated Annealing, Cuckoo Search, Bat, Glowworm, Bacterial Foraging, and Differential Evolution.</li>
-      <li><strong>One entry point:</strong> A unified <code>AutoColony</code> API covers both continuous function optimization and discrete problems such as the Traveling Salesman.</li>
-      <li><strong>Rust core, Python surface:</strong> Compiled via PyO3 and shipped to both registries, so it is equally at home in a notebook or a Rust binary.</li>
-    </ul>
-
-    <pre class="snippet"><code>from colonyx import AutoColony
+      <pre class="snippet"><code>from colonyx import AutoColony
 
 def sphere(x):
     return sum(xi * xi for xi in x)
 
-opt = AutoColony(mode="pso", n_iterations=150, random_state=42)
+opt = AutoColony(
+    mode="pso", n_iterations=150, random_state=42
+)
 opt.fit(sphere, bounds=[(-5, 5)] * 3)
 
-opt.predict()   <span class="c"># best position -> ~[0, 0, 0]</span>
-opt.score()     <span class="c"># objective value -> ~0.004</span></code></pre>
+opt.predict()   <span class="c"># -> ~[0, 0, 0]</span>
+opt.score()     <span class="c"># -> ~0.004</span></code></pre>
 
-    <div class="install">
-      <code>pip install colonyx</code>
-      <button class="copy" type="button" data-copy="pip install colonyx" aria-label="Copy install command">Copy</button>
-    </div>
+      <div class="install">
+        <code>pip install colonyx</code>
+        <button class="copy" type="button" data-copy="pip install colonyx" aria-label="Copy install command">Copy</button>
+      </div>
 
-    <ul class="tags">
-      <li class="tag">Rust</li>
-      <li class="tag">PyO3</li>
-      <li class="tag">Python</li>
-      <li class="tag">Optimization</li>
-    </ul>
+      <p class="links">
+        <a href="https://pypi.org/project/colonyx/">PyPI</a>
+        <a href="https://crates.io/crates/colonyx">crates.io</a>
+        <a href="https://minhld.github.io/colonyx/">Docs</a>
+      </p>
+    </article>
 
-    <p class="links">
-      <a href="https://pypi.org/project/colonyx/">PyPI</a>
-      <a href="https://crates.io/crates/colonyx">crates.io</a>
-      <a href="https://minhld.github.io/colonyx/">Docs</a>
-    </p>
-  </article>
+    <article class="tile entry span-4">
+      <div class="entry-head">
+        <h3><a href="https://crates.io/crates/enigmar">enigmar</a></h3>
+        <span class="meta">
+          {%- if enigmar %}<span class="ver">v{{ enigmar.crate.max_version }}</span> · {% endif -%}
+          Rust
+        </span>
+      </div>
+      <p>
+        A high-performance Enigma machine simulator covering the M3 and M4 models, with Python
+        bindings for anyone who would rather explore the cipher from a notebook.
+      </p>
+      <ul>
+        <li><strong>Historical fidelity:</strong> Models the rotor, reflector, and plugboard mechanics of the M3 and M4 machines.</li>
+        <li><strong>Two audiences:</strong> A Rust crate for speed, plus Python bindings for teaching, tinkering, and cryptanalysis experiments.</li>
+      </ul>
 
-  <article class="entry">
-    <div class="entry-head">
-      <h3><a href="https://crates.io/crates/enigmar">enigmar</a></h3>
-      <span class="meta">
-        {%- if enigmar %}<span class="ver">v{{ enigmar.crate.max_version }}</span> · {% endif -%}
-        Rust
-      </span>
-    </div>
-    <p>
-      A high-performance Enigma machine simulator covering the M3 and M4 models, with Python
-      bindings for anyone who would rather explore the cipher from a notebook.
-    </p>
-    <ul>
-      <li><strong>Historical fidelity:</strong> Models the rotor, reflector, and plugboard mechanics of the M3 and M4 machines.</li>
-      <li><strong>Two audiences:</strong> A Rust crate for speed, plus Python bindings for teaching, tinkering, and cryptanalysis experiments.</li>
-    </ul>
-
-    <pre class="snippet"><code>use enigmar::EnigmaBuilder;
+      <pre class="snippet"><code>use enigmar::EnigmaBuilder;
 
 let mut machine = EnigmaBuilder::new()
     .rotor("I", 0, 0)      <span class="c">// type, position, ring setting</span>
@@ -141,21 +132,15 @@ let mut machine = EnigmaBuilder::new()
 
 let ciphertext = machine.process_string("HELLOWORLD");</code></pre>
 
-    <div class="install">
-      <code>cargo add enigmar</code>
-      <button class="copy" type="button" data-copy="cargo add enigmar" aria-label="Copy install command">Copy</button>
-    </div>
+      <div class="install">
+        <code>cargo add enigmar</code>
+        <button class="copy" type="button" data-copy="cargo add enigmar" aria-label="Copy install command">Copy</button>
+      </div>
 
-    <ul class="tags">
-      <li class="tag">Rust</li>
-      <li class="tag">Cryptography</li>
-      <li class="tag">Python Bindings</li>
-      <li class="tag">Simulation</li>
-    </ul>
-
-    <p class="links">
-      <a href="https://crates.io/crates/enigmar">crates.io</a>
-      <a href="https://github.com/MinLee0210/enigmar">Source</a>
-    </p>
-  </article>
+      <p class="links">
+        <a href="https://crates.io/crates/enigmar">crates.io</a>
+        <a href="https://github.com/MinLee0210/enigmar">Source</a>
+      </p>
+    </article>
+  </div>
 </section>

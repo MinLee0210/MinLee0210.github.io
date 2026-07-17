@@ -40,10 +40,12 @@
   <div class="shell">
     <aside class="rail">
       <div class="rail-inner">
-        <p class="rail-name">Minh Lê Đức</p>
-        <p class="rail-role">AI Engineer</p>
+        <div class="rail-box rail-id">
+          <p class="rail-name">Minh Lê Đức</p>
+          <p class="rail-role">AI Engineer</p>
+        </div>
 
-        <nav class="nav" aria-label="Sections">
+        <nav class="rail-box nav" aria-label="Sections">
           <a href="#experience"><span class="nav-num">01</span> Experience</a>
           <a href="#libraries"><span class="nav-num">02</span> Libraries</a>
           <a href="#projects"><span class="nav-num">03</span> Projects</a>
@@ -52,18 +54,20 @@
           <a href="#credentials"><span class="nav-num">06</span> Credentials</a>
         </nav>
 
-        <ul class="rail-links">
-          <li><a href="mailto:minh.leduc.0210@gmail.com">Email</a></li>
-          <li><a href="https://github.com/MinLee0210">GitHub</a></li>
-          <li><a href="https://www.linkedin.com/in/minhle007/">LinkedIn</a></li>
-          <li><a href="https://medium.com/@minhle_0210">Medium</a></li>
-        </ul>
+        <div class="rail-box rail-foot">
+          <ul class="rail-links">
+            <li><a href="mailto:minh.leduc.0210@gmail.com">Email</a></li>
+            <li><a href="https://github.com/MinLee0210">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/minhle007/">LinkedIn</a></li>
+            <li><a href="https://medium.com/@minhle_0210">Medium</a></li>
+          </ul>
 
-        <button id="theme-toggle" class="toggle" type="button" aria-label="Switch theme" aria-pressed="false">
-          <svg id="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" />
-          </svg>
-        </button>
+          <button id="theme-toggle" class="toggle" type="button" aria-label="Switch theme" aria-pressed="false">
+            <svg id="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" />
+            </svg>
+          </button>
+        </div>
       </div>
     </aside>
 
@@ -77,7 +81,6 @@
       {% include "partials/skills.html" %}
       {% include "partials/education.html" %}
       {% include "partials/certifications.html" %}
-      {% include "partials/languages.html" %}
 
       <footer class="foot">
         <p>&copy; {{ now() | date(format="%Y") }} {{ config.title }}</p>

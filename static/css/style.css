@@ -1,6 +1,6 @@
 /* ---------------------------------------------------------------
    Minh Lê Đức — portfolio
-   Newsreader (display) + Inter (text), single column, no framework.
+   Newsreader (display) + Inter (text), bento tiles, no framework.
    --------------------------------------------------------------- */
 
 :root {
@@ -11,8 +11,9 @@
   --rule: #e4e1db;
   --accent: #2f5d8a;
   --tag-bg: #f2f0ec;
+  --card: #ffffff;
 
-  --measure: 42rem;
+  --measure: 64rem;
   --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   /* System mono — carries the technical accents at zero download cost. */
@@ -27,6 +28,7 @@
   --rule: #2b2926;
   --accent: #8fb5e0;
   --tag-bg: #1e1c1a;
+  --card: #191817;
 }
 
 *,
@@ -69,10 +71,16 @@ body {
 
 .shell {
   display: grid;
-  grid-template-columns: 12rem minmax(0, var(--measure));
-  gap: 4rem;
-  justify-content: center;
-  padding: 5rem 2rem 4rem;
+  grid-template-columns: 12rem minmax(0, 1fr);
+  gap: 3.5rem;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.main {
+  max-width: var(--measure);
+  min-width: 0;
 }
 
 .rail-inner {
@@ -258,40 +266,52 @@ a:hover {
   list-style: none;
 }
 
-/* --- Bento: an "at a glance" band under the masthead ----------- */
+/* --- Bento tiles ----------------------------------------------- */
 
 .bento {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.5rem;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
+  /* Tiles hug their content rather than stretching to the tallest in the row. */
+  align-items: start;
+}
+
+/* The glance band reads better as an even band. */
+.glance {
+  align-items: stretch;
 }
 
 .tile {
   border: 1px solid var(--rule);
-  border-radius: 6px;
-  padding: 1rem;
-  background: var(--card, transparent);
+  border-radius: 8px;
+  padding: 1.25rem;
+  background: var(--card);
+  min-width: 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.tile > :first-child { margin-top: 0; }
+.tile > :last-child { margin-bottom: 0; }
+
+/* Spans. Every tile defaults to half-width. */
+.tile { grid-column: span 2; }
+.span-1 { grid-column: span 1; }
+.span-2 { grid-column: span 2; }
+.span-3 { grid-column: span 3; }
+.span-4 { grid-column: span 4; }
+
+/* The glance band's tiles centre their content; content tiles do not. */
+.glance .tile {
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 0.25rem;
   min-height: 5.5rem;
-  text-decoration: none;
-  color: inherit;
 }
 
-.tile p {
-  margin: 0;
-}
-
-.tile-now {
-  grid-column: span 2;
-}
-
-.tile-wide {
-  grid-column: span 2;
-}
+.tile p { margin: 0 0 0.5rem; }
 
 .tile-key {
   font-size: 0.6875rem;
@@ -320,13 +340,9 @@ a:hover {
   line-height: 1.45;
 }
 
-.tile .dim {
-  color: var(--faint);
-}
+.tile .dim { color: var(--faint); }
 
-a.tile:hover {
-  border-color: var(--faint);
-}
+a.tile:hover { border-color: var(--faint); }
 
 .tile-links {
   display: flex;
@@ -334,14 +350,46 @@ a.tile:hover {
   gap: 0.25rem 0.875rem;
 }
 
-@media (max-width: 34rem) {
+/* --- Rail tiles ------------------------------------------------- */
+
+.rail-box {
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--card);
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Two columns on tablets, one on phones. Every span collapses so a tile
+   can never demand more columns than the grid has. */
+@media (max-width: 62rem) {
   .bento {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .tile-now,
-  .tile-wide {
+  .span-1,
+  .span-3,
+  .span-4,
+  .tile {
     grid-column: span 2;
+  }
+
+  .span-1 {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 34rem) {
+  .bento {
+    grid-template-columns: 1fr;
+  }
+
+  .span-1,
+  .span-2,
+  .span-3,
+  .span-4,
+  .tile {
+    grid-column: span 1;
   }
 }
 
@@ -372,7 +420,7 @@ a.tile:hover {
 /* --- Sections -------------------------------------------------- */
 
 .section {
-  margin-bottom: 3.5rem;
+  margin-bottom: 3rem;
 }
 
 .section > h2 {
@@ -395,6 +443,19 @@ a.tile:hover {
 
 .entry:last-child {
   margin-bottom: 0;
+}
+
+/* Inside a tile the tile owns the spacing. */
+.tile .entry {
+  margin-bottom: 0;
+}
+
+.tile .entry-head h3 {
+  font-size: 1rem;
+}
+
+.tile .snippet {
+  font-size: 0.75rem;
 }
 
 /* Title line: heading left, date/meta right, aligned on the baseline. */
@@ -692,4 +753,25 @@ code {
   * {
     transition: none !important;
   }
+}
+
+.tile-lead-sm {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.rail-foot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.rail-foot .rail-links {
+  margin: 0;
+}
+
+.nav.rail-box {
+  padding: 0.75rem 1rem;
 }
