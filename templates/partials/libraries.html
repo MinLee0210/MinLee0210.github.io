@@ -1,0 +1,79 @@
+<section class="resume-section bg-[var(--card)] p-6 rounded-lg shadow-sm">
+    <h2 class="text-xl font-bold mb-4 border-b pb-2 border-[var(--primary)]">Libraries</h2>
+
+    <p class="text-sm mb-5 opacity-80">
+      Packages I design, build, and maintain, published to PyPI and crates.io. Each one started as
+      something I needed for my own work and grew into a tool I keep sharpening.
+    </p>
+
+    <div class="mb-6">
+      <h3 class="font-semibold mb-1">
+        <a href="https://pypi.org/project/kalbee/" class="hover:underline text-[var(--primary)]">
+          kalbee
+        </a>
+        <span class="text-xs font-normal opacity-70">— Python · PyPI</span>
+      </h3>
+      <p class="text-sm mb-2">
+        A clean, modular toolkit for Kalman filtering and state estimation, bringing ten filter
+        families together under one consistent API.
+      </p>
+      <ul class="list-disc list-inside text-sm space-y-1 pl-2 mb-2">
+        <li><strong>Breadth:</strong> Kalman, Extended, Unscented, Particle, Ensemble, Information, Adaptive, and Square-Root filters, plus an RTS smoother for post-processing.</li>
+        <li><strong>Tracking:</strong> Multi-object tracking with Hungarian association, track lifecycle management, and ready-made constant-velocity, constant-acceleration, and coordinated-turn motion models.</li>
+        <li><strong>Numerical rigor:</strong> Joseph-form updates and Cholesky stabilization, with RMSE, NEES, NIS, and log-likelihood diagnostics built in.</li>
+      </ul>
+      <div class="flex flex-wrap gap-2">
+        <span class="tag">Python</span>
+        <span class="tag">State Estimation</span>
+        <span class="tag">Sensor Fusion</span>
+        <span class="tag">Tracking</span>
+      </div>
+    </div>
+
+    <div class="mb-6">
+      <h3 class="font-semibold mb-1">
+        <a href="https://pypi.org/project/colonyx/" class="hover:underline text-[var(--primary)]">
+          colonyx
+        </a>
+        <span class="text-xs font-normal opacity-70">— Rust + Python · <a href="https://crates.io/crates/colonyx" class="hover:underline text-[var(--primary)]">crates.io</a> · PyPI</span>
+      </h3>
+      <p class="text-sm mb-2">
+        Rust-backed swarm intelligence optimization for Python — a Pythonic interface over a compiled
+        core, so the ergonomics never cost you the runtime.
+      </p>
+      <ul class="list-disc list-inside text-sm space-y-1 pl-2 mb-2">
+        <li><strong>Eleven algorithms:</strong> Ant Colony, Particle Swarm, Artificial Bee Colony, Grey Wolf, Firefly, Simulated Annealing, Cuckoo Search, Bat, Glowworm, Bacterial Foraging, and Differential Evolution.</li>
+        <li><strong>One entry point:</strong> A unified <code class="text-xs">AutoColony</code> API covers both continuous function optimization and discrete problems such as the Traveling Salesman.</li>
+        <li><strong>Rust core, Python surface:</strong> Compiled via PyO3 and shipped to both registries, so it is equally at home in a notebook or a Rust binary.</li>
+      </ul>
+      <div class="flex flex-wrap gap-2">
+        <span class="tag">Rust</span>
+        <span class="tag">PyO3</span>
+        <span class="tag">Python</span>
+        <span class="tag">Optimization</span>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="font-semibold mb-1">
+        <a href="https://crates.io/crates/enigmar" class="hover:underline text-[var(--primary)]">
+          enigmar
+        </a>
+        <span class="text-xs font-normal opacity-70">— Rust · crates.io</span>
+      </h3>
+      <p class="text-sm mb-2">
+        A high-performance Enigma machine simulator covering the M3 and M4 models, with Python
+        bindings for anyone who would rather explore the cipher from a notebook.
+      </p>
+      <ul class="list-disc list-inside text-sm space-y-1 pl-2 mb-2">
+        <li><strong>Historical fidelity:</strong> Models the rotor, reflector, and plugboard mechanics of the M3 and M4 machines.</li>
+        <li><strong>Two audiences:</strong> A Rust crate for speed, plus Python bindings for teaching, tinkering, and cryptanalysis experiments.</li>
+      </ul>
+      <div class="flex flex-wrap gap-2">
+        <span class="tag">Rust</span>
+        <span class="tag">Cryptography</span>
+        <span class="tag">Python Bindings</span>
+        <span class="tag">Simulation</span>
+      </div>
+    </div>
+  </section>

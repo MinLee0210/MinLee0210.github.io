@@ -1,0 +1,5 @@
+# Zola build output — CI rebuilds this and publishes it to the gh-pages branch.
+/public
+
+# macOS
+.DS_Store
