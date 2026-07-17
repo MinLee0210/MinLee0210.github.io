@@ -599,52 +599,6 @@ code {
   white-space: nowrap;
 }
 
-/* --- Compact lists (skills, languages, education) -------------- */
-
-.rows {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 0.9375rem;
-}
-
-.rows > li {
-  padding: 0.6rem 0;
-  border-bottom: 1px solid var(--rule);
-  display: grid;
-  grid-template-columns: 11rem 1fr;
-  gap: 1.25rem;
-}
-
-.rows > li:last-child {
-  border-bottom: 0;
-}
-
-.rows .key {
-  color: var(--muted);
-  font-size: 0.8125rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  padding-top: 0.15rem;
-}
-
-/* Title on the left, date on the right — for credentials and languages. */
-.rows.split > li {
-  grid-template-columns: 1fr auto;
-  align-items: baseline;
-}
-
-@media (max-width: 34rem) {
-  .rows > li {
-    grid-template-columns: 1fr;
-    gap: 0.2rem;
-  }
-
-  .rows.split > li {
-    grid-template-columns: 1fr auto;
-  }
-}
-
 /* --- Theme toggle ---------------------------------------------- */
 
 .toggle {
@@ -686,61 +640,143 @@ code {
 
 /* --- Print: this is a résumé, so Ctrl-P has to produce paper ---- */
 
+/* --- Print: this is a resume, so Ctrl-P has to produce paper ---- */
+
 @media print {
   :root {
     --bg: #fff;
     --ink: #000;
     --muted: #333;
     --faint: #555;
-    --rule: #ccc;
+    --rule: #bbb;
     --accent: #000;
-    --tag-bg: #f3f3f3;
+    --tag-bg: #fff;
+    --card: #fff;
   }
 
+  /* Navigation, controls, and the sticky rail are screen furniture. */
+  .rail,
   .toggle,
-  .foot,
-  .nav,
   .copy,
-  .skip {
+  .skip,
+  .foot,
+  .section-note {
+    display: none;
+  }
+
+  /* These glance tiles restate Experience, Libraries, and Skills, which all
+     appear in full below. On one scrollable page that reads as a summary;
+     on paper it is just duplication. */
+  .glance .tile-now,
+  .glance .tile-count,
+  .glance .tile-stack {
     display: none;
   }
 
   .shell {
     display: block;
+    max-width: none;
     padding: 0;
   }
 
-  .rail-inner {
-    position: static;
-  }
-
-  .install {
-    border: 0;
-    background: none;
-    padding: 0;
+  .main {
+    max-width: none;
   }
 
   body {
-    font-size: 10.5pt;
-    line-height: 1.45;
+    font-size: 9.5pt;
+    line-height: 1.4;
   }
 
   .masthead {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
-  .section {
-    margin-bottom: 1.25rem;
+  .masthead h1 {
+    font-size: 22pt;
   }
 
-  .entry,
-  .section > h2 {
-    break-inside: avoid;
+  .bio {
+    max-width: none;
+    font-size: 9.5pt;
+  }
+
+  /* Tiles become plain stacked blocks; borders would checkerboard the page. */
+  .bento {
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .tile {
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    background: none;
+    margin-bottom: 0.6rem;
+  }
+
+  /* Never strand a heading at the foot of a page. */
+  .entry-head,
+  .entry-head + .org {
     break-after: avoid;
   }
 
-  .entry {
+  /* The glance band is the only place languages and links now live. */
+  .glance {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 1.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.4rem 0;
     margin-bottom: 1rem;
+  }
+
+  /* The surviving two tiles sit side by side; their span-2 would stack them. */
+  .glance .tile {
+    min-height: 0;
+    margin-bottom: 0;
+    grid-column: span 1;
+  }
+
+  .section {
+    margin-bottom: 1rem;
+  }
+
+  .section > h2 {
+    font-size: 13pt;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.25rem;
+    break-after: avoid;
+  }
+
+  /* Code samples are a screen affordance; on paper they cost pages. */
+  .snippet,
+  .install {
+    display: none;
+  }
+
+  .entry ul {
+    margin-bottom: 0.4rem;
+  }
+
+  /* Skills print as label-above-value, which burns a line per category.
+     On paper they read better as label/value rows. */
+  #skills .tile {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    gap: 0 1rem;
+    align-items: baseline;
+    margin-bottom: 0.15rem;
+  }
+
+  #skills .tile p {
+    margin: 0;
+  }
+
+  .tags,
+  p.links {
+    display: none;
   }
 
   a {
