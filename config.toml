@@ -1,21 +1,9 @@
-# The URL the site will be built for
-title = "BelResumé"            # Your site name
-description = "John Doe | Senior Software Engineer"  # Shown in meta and hero
+title = "Minh Lê Đức"
+description = "Minh Lê Đức — AI Engineer working on NLP, generative AI, and libraries in Python and Rust."
 base_url = "https://minlee0210.github.io"
 
-# Use base_url present below if deploying using GitHub Pages
-# base_url = "https://minlee0210.github.io/BelResume"
-
-# Whether to automatically compile all Sass files in the sass directory
 compile_sass = false
-
-# Whether to build a search index to be used later on by a JavaScript library
 build_search_index = false
 
-[markdown]
-# Whether to do syntax highlighting
-# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
-highlight_code = false
-
 [extra]
-# Put all your custom variables here
+role = "AI Engineer"

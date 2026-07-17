@@ -1,6 +1,29 @@
-function changeTheme(theme){document.documentElement.classList.remove('theme-blue','theme-purple','theme-amber');document.documentElement.classList.add(`theme-${theme}`);localStorage.setItem('resumeTheme',theme)}
-function toggleDarkMode(){document.documentElement.classList.toggle('dark');const isDark=document.documentElement.classList.contains('dark');localStorage.setItem('resumeDarkMode',isDark)}
-document.addEventListener('DOMContentLoaded',()=>{const savedTheme=localStorage.getItem('resumeTheme')||'blue';changeTheme(savedTheme);const savedDarkMode=localStorage.getItem('resumeDarkMode')==='true';if(savedDarkMode){document.documentElement.classList.add('dark')}
-const observer=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){const progressBars=entry.target.querySelectorAll('.progress');progressBars.forEach(bar=>{const width=bar.style.width;bar.style.width='0';setTimeout(()=>{bar.style.width=width},100)})}})},{threshold:0.1});document.querySelectorAll('.resume-section').forEach(section=>{observer.observe(section)})})
+function applyDarkMode(isDark) {
+  document.documentElement.classList.toggle('dark', isDark);
+
+  const icon = document.getElementById('theme-toggle-icon');
+  if (icon) {
+    icon.className = isDark ? 'fas fa-sun text-sm' : 'fas fa-moon text-sm';
+  }
+
+  const button = document.getElementById('theme-toggle');
+  if (button) {
+    button.setAttribute('aria-pressed', String(isDark));
+    button.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+}
+
+function toggleDarkMode() {
+  const isDark = !document.documentElement.classList.contains('dark');
+  applyDarkMode(isDark);
+  localStorage.setItem('resumeDarkMode', String(isDark));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Fall back to the OS preference until the visitor makes an explicit choice.
+  const saved = localStorage.getItem('resumeDarkMode');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyDarkMode(saved === null ? prefersDark : saved === 'true');
+});
 
 /*You can write your own code below*/
