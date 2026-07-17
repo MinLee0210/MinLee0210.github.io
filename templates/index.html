@@ -35,28 +35,54 @@
 </head>
 
 <body>
-  <button id="theme-toggle" class="toggle" type="button" aria-label="Switch theme" aria-pressed="false">
-    <svg id="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" />
-    </svg>
-  </button>
+  <a class="skip" href="#main">Skip to content</a>
 
-  <main class="page">
-    {% include "partials/header.html" %}
+  <div class="shell">
+    <aside class="rail">
+      <div class="rail-inner">
+        <p class="rail-name">Minh Lê Đức</p>
+        <p class="rail-role">AI Engineer</p>
 
-    {% include "partials/experience.html" %}
-    {% include "partials/libraries.html" %}
-    {% include "partials/projects.html" %}
-    {% include "partials/skills.html" %}
-    {% include "partials/education.html" %}
-    {% include "partials/certifications.html" %}
-    {% include "partials/languages.html" %}
-    {# {% include "partials/awards.html" %} #}
+        <nav class="nav" aria-label="Sections">
+          <a href="#experience"><span class="nav-num">01</span> Experience</a>
+          <a href="#libraries"><span class="nav-num">02</span> Libraries</a>
+          <a href="#projects"><span class="nav-num">03</span> Projects</a>
+          <a href="#skills"><span class="nav-num">04</span> Skills</a>
+          <a href="#education"><span class="nav-num">05</span> Education</a>
+          <a href="#credentials"><span class="nav-num">06</span> Credentials</a>
+        </nav>
 
-    <footer class="foot">
-      <p>&copy; {{ now() | date(format="%Y") }} {{ config.title }}</p>
-    </footer>
-  </main>
+        <ul class="rail-links">
+          <li><a href="mailto:minh.leduc.0210@gmail.com">Email</a></li>
+          <li><a href="https://github.com/MinLee0210">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/minhle007/">LinkedIn</a></li>
+          <li><a href="https://medium.com/@minhle_0210">Medium</a></li>
+        </ul>
+
+        <button id="theme-toggle" class="toggle" type="button" aria-label="Switch theme" aria-pressed="false">
+          <svg id="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" />
+          </svg>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main" id="main">
+      {% include "partials/header.html" %}
+
+      {% include "partials/experience.html" %}
+      {% include "partials/libraries.html" %}
+      {% include "partials/projects.html" %}
+      {% include "partials/skills.html" %}
+      {% include "partials/education.html" %}
+      {% include "partials/certifications.html" %}
+      {% include "partials/languages.html" %}
+
+      <footer class="foot">
+        <p>&copy; {{ now() | date(format="%Y") }} {{ config.title }}</p>
+      </footer>
+    </main>
+  </div>
 
   <script src="{{ get_url(path='js/script.js') }}"></script>
 </body>

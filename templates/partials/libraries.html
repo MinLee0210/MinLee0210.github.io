@@ -1,4 +1,13 @@
-<section class="section">
+{#-
+  Versions are fetched from the registries at build time, so the page can never
+  drift from what is actually published. required=false means a registry outage
+  degrades to "no version badge" instead of failing the deploy.
+-#}
+{%- set kalbee = load_data(url="https://pypi.org/pypi/kalbee/json", format="json", required=false) -%}
+{%- set colonyx = load_data(url="https://pypi.org/pypi/colonyx/json", format="json", required=false) -%}
+{%- set enigmar = load_data(url="https://crates.io/api/v1/crates/enigmar", format="json", required=false) -%}
+
+<section class="section" id="libraries">
   <h2>Libraries</h2>
 
   <p class="section-note">
@@ -9,7 +18,10 @@
   <article class="entry">
     <div class="entry-head">
       <h3><a href="https://pypi.org/project/kalbee/">kalbee</a></h3>
-      <span class="meta">Python · PyPI</span>
+      <span class="meta">
+        {%- if kalbee %}<span class="ver">v{{ kalbee.info.version }}</span> · {% endif -%}
+        Python
+      </span>
     </div>
     <p>
       A clean, modular toolkit for Kalman filtering and state estimation, bringing ten filter
@@ -20,18 +32,32 @@
       <li><strong>Tracking:</strong> Multi-object tracking with Hungarian association, track lifecycle management, and ready-made constant-velocity, constant-acceleration, and coordinated-turn motion models.</li>
       <li><strong>Numerical rigor:</strong> Joseph-form updates and Cholesky stabilization, with RMSE, NEES, NIS, and log-likelihood diagnostics built in.</li>
     </ul>
+
+    <div class="install">
+      <code>pip install kalbee</code>
+      <button class="copy" type="button" data-copy="pip install kalbee" aria-label="Copy install command">Copy</button>
+    </div>
+
     <ul class="tags">
       <li class="tag">Python</li>
       <li class="tag">State Estimation</li>
       <li class="tag">Sensor Fusion</li>
       <li class="tag">Tracking</li>
     </ul>
+
+    <p class="links">
+      <a href="https://pypi.org/project/kalbee/">PyPI</a>
+      <a href="https://github.com/MinLee0210/kalbee">Source</a>
+    </p>
   </article>
 
   <article class="entry">
     <div class="entry-head">
       <h3><a href="https://pypi.org/project/colonyx/">colonyx</a></h3>
-      <span class="meta">Rust + Python · crates.io</span>
+      <span class="meta">
+        {%- if colonyx %}<span class="ver">v{{ colonyx.info.version }}</span> · {% endif -%}
+        Rust + Python
+      </span>
     </div>
     <p>
       Rust-backed swarm intelligence optimization for Python — a Pythonic interface over a compiled
@@ -42,18 +68,33 @@
       <li><strong>One entry point:</strong> A unified <code>AutoColony</code> API covers both continuous function optimization and discrete problems such as the Traveling Salesman.</li>
       <li><strong>Rust core, Python surface:</strong> Compiled via PyO3 and shipped to both registries, so it is equally at home in a notebook or a Rust binary.</li>
     </ul>
+
+    <div class="install">
+      <code>pip install colonyx</code>
+      <button class="copy" type="button" data-copy="pip install colonyx" aria-label="Copy install command">Copy</button>
+    </div>
+
     <ul class="tags">
       <li class="tag">Rust</li>
       <li class="tag">PyO3</li>
       <li class="tag">Python</li>
       <li class="tag">Optimization</li>
     </ul>
+
+    <p class="links">
+      <a href="https://pypi.org/project/colonyx/">PyPI</a>
+      <a href="https://crates.io/crates/colonyx">crates.io</a>
+      <a href="https://minhld.github.io/colonyx/">Docs</a>
+    </p>
   </article>
 
   <article class="entry">
     <div class="entry-head">
       <h3><a href="https://crates.io/crates/enigmar">enigmar</a></h3>
-      <span class="meta">Rust · crates.io</span>
+      <span class="meta">
+        {%- if enigmar %}<span class="ver">v{{ enigmar.crate.max_version }}</span> · {% endif -%}
+        Rust
+      </span>
     </div>
     <p>
       A high-performance Enigma machine simulator covering the M3 and M4 models, with Python
@@ -63,11 +104,22 @@
       <li><strong>Historical fidelity:</strong> Models the rotor, reflector, and plugboard mechanics of the M3 and M4 machines.</li>
       <li><strong>Two audiences:</strong> A Rust crate for speed, plus Python bindings for teaching, tinkering, and cryptanalysis experiments.</li>
     </ul>
+
+    <div class="install">
+      <code>cargo add enigmar</code>
+      <button class="copy" type="button" data-copy="cargo add enigmar" aria-label="Copy install command">Copy</button>
+    </div>
+
     <ul class="tags">
       <li class="tag">Rust</li>
       <li class="tag">Cryptography</li>
       <li class="tag">Python Bindings</li>
       <li class="tag">Simulation</li>
     </ul>
+
+    <p class="links">
+      <a href="https://crates.io/crates/enigmar">crates.io</a>
+      <a href="https://github.com/MinLee0210/enigmar">Source</a>
+    </p>
   </article>
 </section>

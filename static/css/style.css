@@ -15,6 +15,8 @@
   --measure: 42rem;
   --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* System mono — carries the technical accents at zero download cost. */
+  --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 }
 
 .dark {
@@ -49,10 +51,146 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-.page {
-  max-width: var(--measure);
-  margin: 0 auto;
-  padding: 5rem 1.5rem 4rem;
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 10;
+  background: var(--bg);
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--rule);
+}
+
+/* --- Shell: sticky rail + content --------------------------------- */
+
+.shell {
+  display: grid;
+  grid-template-columns: 12rem minmax(0, var(--measure));
+  gap: 4rem;
+  justify-content: center;
+  padding: 5rem 2rem 4rem;
+}
+
+.rail-inner {
+  position: sticky;
+  top: 5rem;
+}
+
+.rail-name {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.rail-role {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin: 0.35rem 0 2rem;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin-bottom: 2rem;
+}
+
+.nav a {
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.25rem 0;
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  border: 0;
+}
+
+.nav-num {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.nav a:hover {
+  color: var(--ink);
+}
+
+.nav a.active {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.nav a.active .nav-num {
+  color: var(--accent);
+}
+
+.rail-links {
+  list-style: none;
+  margin: 0 0 2rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.8125rem;
+}
+
+.rail-links a {
+  color: var(--muted);
+}
+
+.rail-links a:hover {
+  color: var(--accent);
+}
+
+/* Collapse the rail into a plain header on narrow screens. */
+@media (max-width: 62rem) {
+  .shell {
+    /* 1fr, not minmax(0, measure): a fixed max would size the track to its
+       growth limit and overflow narrow viewports. */
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding: 3rem 1.5rem;
+  }
+
+  .rail-inner {
+    position: static;
+  }
+
+  .rail {
+    margin-bottom: 2.5rem;
+  }
+
+  .rail-name,
+  .rail-role {
+    display: none;
+  }
+
+  .nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .nav-num {
+    display: none;
+  }
+
+  .rail-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+    margin-bottom: 0;
+  }
 }
 
 /* --- Typography ------------------------------------------------ */
@@ -201,6 +339,74 @@ a:hover {
   font-weight: 600;
 }
 
+/* --- Version badge, install block, link rows -------------------- */
+
+.ver {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.install {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: var(--tag-bg);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  margin: 0 0 0.875rem;
+  overflow-x: auto;
+}
+
+.install code {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.install code::before {
+  content: '$ ';
+  color: var(--faint);
+}
+
+.copy {
+  font-family: var(--sans);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--faint);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0.15rem 0.25rem;
+  flex-shrink: 0;
+}
+
+.copy:hover {
+  color: var(--accent);
+}
+
+p.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.8125rem;
+  margin: 0.875rem 0 0;
+}
+
+p.links a {
+  color: var(--muted);
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.875em;
+}
+
 /* --- Tags ------------------------------------------------------ */
 
 .tags {
@@ -271,9 +477,6 @@ a:hover {
 /* --- Theme toggle ---------------------------------------------- */
 
 .toggle {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
   background: none;
   border: 1px solid var(--rule);
   border-radius: 999px;
@@ -324,12 +527,25 @@ a:hover {
   }
 
   .toggle,
-  .foot {
+  .foot,
+  .nav,
+  .copy,
+  .skip {
     display: none;
   }
 
-  .page {
-    max-width: none;
+  .shell {
+    display: block;
+    padding: 0;
+  }
+
+  .rail-inner {
+    position: static;
+  }
+
+  .install {
+    border: 0;
+    background: none;
     padding: 0;
   }
 

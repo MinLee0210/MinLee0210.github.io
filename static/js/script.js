@@ -22,3 +22,53 @@
     render(isDark);
   });
 })();
+
+// Highlight the nav entry for whichever section is currently in view.
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+  if (!links.length || !('IntersectionObserver' in window)) return;
+
+  var byId = {};
+  var sections = [];
+
+  links.forEach(function (link) {
+    var id = link.getAttribute('href').slice(1);
+    var section = document.getElementById(id);
+    if (!section) return;
+    byId[id] = link;
+    sections.push(section);
+  });
+
+  var visible = {};
+
+  function update() {
+    // Pick the topmost section currently on screen, so the rail never lags.
+    var current = sections.filter(function (s) { return visible[s.id]; })[0];
+    links.forEach(function (link) { link.classList.remove('active'); });
+    if (current && byId[current.id]) byId[current.id].classList.add('active');
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      visible[entry.target.id] = entry.isIntersecting;
+    });
+    update();
+  }, { rootMargin: '-10% 0px -70% 0px' });
+
+  sections.forEach(function (s) { observer.observe(s); });
+})();
+
+// Copy install commands.
+(function () {
+  document.querySelectorAll('.copy').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var text = button.getAttribute('data-copy');
+      if (!navigator.clipboard) return;
+      navigator.clipboard.writeText(text).then(function () {
+        var previous = button.textContent;
+        button.textContent = 'Copied';
+        setTimeout(function () { button.textContent = previous; }, 1200);
+      });
+    });
+  });
+})();
