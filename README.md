@@ -1,24 +1,48 @@
-# MinLee0210.github.io
+# minlee0210.github.io
 
-## Hi there, I'm Minh — an AI Engineer exploring the frontier of intelligent systems.
+My portfolio — **[minlee0210.github.io](https://minlee0210.github.io)**
 
-With over a year of hands-on experience in natural language processing and generative AI, I've built and deployed systems for sentiment analysis, text classification, and conversational agents. My toolkit includes cutting-edge models like BERT and GPT, and I specialize in text preprocessing, model optimization, scalable deployment, and data collection through advanced web crawling techniques.
+I'm Minh, an AI Engineer in Hồ Chí Minh City. I build and deploy machine learning systems —
+natural language processing, generative AI, and real-time vision — and I maintain a few open
+libraries in Python and Rust:
 
-This space is my digital lab — a place where I share experiments, research insights, and projects that challenge conventional thinking and push the boundaries of what's possible with AI.
+| Library | | |
+|---|---|---|
+| [**kalbee**](https://pypi.org/project/kalbee/) | Kalman filtering and state estimation — ten filter families under one API | PyPI |
+| [**colonyx**](https://pypi.org/project/colonyx/) | Rust-backed swarm intelligence optimization for Python | PyPI · [crates.io](https://crates.io/crates/colonyx) |
+| [**enigmar**](https://crates.io/crates/enigmar) | Enigma M3/M4 simulator with Python bindings | crates.io |
 
-Here’s what you’ll find here:
+Reach me at [minh.leduc.0210@gmail.com](mailto:minh.leduc.0210@gmail.com),
+[LinkedIn](https://www.linkedin.com/in/minhle007/), or [Medium](https://medium.com/@minhle_0210).
 
-* **AI Frontiers**: In-depth explorations of state-of-the-art models, from large language architectures to advanced deep learning techniques. Expect code, research commentary, and thoughtful insights on emerging trends like retrieval-augmented generation and AGI.
-* **Curated Resources**: A collection of papers, blog posts, and tutorials that have inspired or challenged me — shared to help others stay sharp in a fast-moving field.
-* **Project Spotlights**: I'm currently developing a Retrieval-Augmented Generation (RAG) system to improve how we extract and summarize information from vast amounts of text — one step closer to smarter AI.
+## Running it
 
-I'm always looking to connect with fellow engineers, researchers, and learners. If there's an area in AI you'd like to see explored or discussed, feel free to reach out.
+A [Zola](https://www.getzola.org/) static site. No JavaScript framework, no CSS framework, and
+no external requests at runtime — fonts are self-hosted, and the only script is ~1KB for the
+theme toggle, the scroll-spy nav, and the copy buttons.
 
-### How to reach me:
+```sh
+brew install zola   # or getzola.org/documentation/getting-started/installation
+zola serve          # http://127.0.0.1:1111
+zola build          # writes to public/
+```
 
-* **Gmail**: [minh.leduc.0210@gmail.com](mailto:minh.leduc.0210@gmail.com)
-* **LinkedIn**: [Minh Lê Đức](https://www.linkedin.com/in/minh-le-duc-a62863172/)
-* **Medium**: [@minhle\_0210](https://medium.com/@minhle_0210)
-* **GitHub**: [MinLee0210](https://github.com/MinLee0210)
+Library version numbers are fetched from PyPI and crates.io **at build time**, so the page
+can't drift from what is actually published. If a registry is unreachable the version badge
+drops rather than the build failing.
 
-Let’s build the future of AI — one breakthrough at a time.
+## Layout
+
+```
+config.toml            site config; [extra].role feeds the <title>
+templates/index.html   page shell — rail, glance band, section includes
+templates/partials/    one file per section
+static/css/style.css   every style, including print
+static/css/fonts.css   @font-face rules (generated)
+static/fonts/          self-hosted woff2 subsets, incl. Vietnamese
+static/js/script.js    theme toggle, scroll-spy, copy buttons
+content/               empty; zola serve refuses to run without it
+```
+
+Pushing to `main` builds the site and publishes it to the `gh-pages` branch, which is what
+GitHub Pages serves.

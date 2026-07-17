@@ -1,79 +1,145 @@
-<section class="resume-section bg-[var(--card)] p-6 rounded-lg shadow-sm">
-    <h2 class="text-xl font-bold mb-4 border-b pb-2 border-[var(--primary)]">Libraries</h2>
+{#-
+  Versions are fetched from the registries at build time, so the page can never
+  drift from what is actually published. required=false means a registry outage
+  degrades to "no version badge" instead of failing the deploy.
+-#}
+{%- set kalbee = load_data(url="https://pypi.org/pypi/kalbee/json", format="json", required=false) -%}
+{%- set colonyx = load_data(url="https://pypi.org/pypi/colonyx/json", format="json", required=false) -%}
+{%- set enigmar = load_data(url="https://crates.io/api/v1/crates/enigmar", format="json", required=false) -%}
 
-    <p class="text-sm mb-5 opacity-80">
-      Packages I design, build, and maintain, published to PyPI and crates.io. Each one started as
-      something I needed for my own work and grew into a tool I keep sharpening.
-    </p>
+<section class="section" id="libraries">
+  <h2>Libraries</h2>
 
-    <div class="mb-6">
-      <h3 class="font-semibold mb-1">
-        <a href="https://pypi.org/project/kalbee/" class="hover:underline text-[var(--primary)]">
-          kalbee
-        </a>
-        <span class="text-xs font-normal opacity-70">— Python · PyPI</span>
-      </h3>
-      <p class="text-sm mb-2">
-        A clean, modular toolkit for Kalman filtering and state estimation, bringing ten filter
-        families together under one consistent API.
-      </p>
-      <ul class="list-disc list-inside text-sm space-y-1 pl-2 mb-2">
-        <li><strong>Breadth:</strong> Kalman, Extended, Unscented, Particle, Ensemble, Information, Adaptive, and Square-Root filters, plus an RTS smoother for post-processing.</li>
-        <li><strong>Tracking:</strong> Multi-object tracking with Hungarian association, track lifecycle management, and ready-made constant-velocity, constant-acceleration, and coordinated-turn motion models.</li>
-        <li><strong>Numerical rigor:</strong> Joseph-form updates and Cholesky stabilization, with RMSE, NEES, NIS, and log-likelihood diagnostics built in.</li>
-      </ul>
-      <div class="flex flex-wrap gap-2">
-        <span class="tag">Python</span>
-        <span class="tag">State Estimation</span>
-        <span class="tag">Sensor Fusion</span>
-        <span class="tag">Tracking</span>
+  <p class="section-note">
+    Packages I design, build, and maintain — published to PyPI and crates.io, each sharpened by my own use.
+  </p>
+
+  <div class="bento">
+    <article class="tile entry span-2">
+      <div class="entry-head">
+        <h3><a href="https://pypi.org/project/kalbee/">kalbee</a></h3>
+        <span class="meta">
+          {%- if kalbee %}<span class="ver">v{{ kalbee.info.version }}</span> · {% endif -%}
+          Python
+        </span>
       </div>
-    </div>
-
-    <div class="mb-6">
-      <h3 class="font-semibold mb-1">
-        <a href="https://pypi.org/project/colonyx/" class="hover:underline text-[var(--primary)]">
-          colonyx
-        </a>
-        <span class="text-xs font-normal opacity-70">— Rust + Python · <a href="https://crates.io/crates/colonyx" class="hover:underline text-[var(--primary)]">crates.io</a> · PyPI</span>
-      </h3>
-      <p class="text-sm mb-2">
-        Rust-backed swarm intelligence optimization for Python — a Pythonic interface over a compiled
-        core, so the ergonomics never cost you the runtime.
+      <p>
+        Kalman filtering and state estimation — ten filter families under one consistent API.
       </p>
-      <ul class="list-disc list-inside text-sm space-y-1 pl-2 mb-2">
+      <ul>
+        <li><strong>Breadth:</strong> Kalman, Extended, Unscented, Particle, Ensemble, Information, Adaptive, and Square-Root filters, plus an RTS smoother.</li>
+        <li><strong>Tracking:</strong> Multi-object tracking with Hungarian association and ready-made motion models.</li>
+        <li><strong>Numerical rigor:</strong> Joseph-form updates and Cholesky stabilization, with RMSE, NEES, and NIS diagnostics.</li>
+      </ul>
+
+      <pre class="snippet"><code>import numpy as np
+from kalbee import KalmanFilter
+
+kf = KalmanFilter(
+    np.zeros((2, 1)),             <span class="c"># state</span>
+    np.eye(2),                    <span class="c"># covariance</span>
+    np.array([[1, 1], [0, 1]]),   <span class="c"># F: constant velocity</span>
+    np.eye(2) * 0.01,             <span class="c"># Q</span>
+    np.array([[1, 0]]),           <span class="c"># H: observe position</span>
+    np.array([[0.1]]),            <span class="c"># R</span>
+)
+kf.predict()
+kf.update(np.array([[1.2]]))
+<span class="c"># kf.x -> [[1.14], [0.57]]</span></code></pre>
+
+      <div class="install">
+        <code>pip install kalbee</code>
+        <button class="copy" type="button" data-copy="pip install kalbee" aria-label="Copy install command">Copy</button>
+      </div>
+
+      <p class="links">
+        <a href="https://pypi.org/project/kalbee/">PyPI</a>
+        <a href="https://github.com/MinLee0210/kalbee">Source</a>
+      </p>
+    </article>
+
+    <article class="tile entry span-2">
+      <div class="entry-head">
+        <h3><a href="https://pypi.org/project/colonyx/">colonyx</a></h3>
+        <span class="meta">
+          {%- if colonyx %}<span class="ver">v{{ colonyx.info.version }}</span> · {% endif -%}
+          Rust + Python
+        </span>
+      </div>
+      <p>
+        Rust-backed swarm intelligence optimization for Python — a Pythonic interface over a
+        compiled core.
+      </p>
+      <ul>
         <li><strong>Eleven algorithms:</strong> Ant Colony, Particle Swarm, Artificial Bee Colony, Grey Wolf, Firefly, Simulated Annealing, Cuckoo Search, Bat, Glowworm, Bacterial Foraging, and Differential Evolution.</li>
-        <li><strong>One entry point:</strong> A unified <code class="text-xs">AutoColony</code> API covers both continuous function optimization and discrete problems such as the Traveling Salesman.</li>
-        <li><strong>Rust core, Python surface:</strong> Compiled via PyO3 and shipped to both registries, so it is equally at home in a notebook or a Rust binary.</li>
+        <li><strong>One entry point:</strong> A unified <code>AutoColony</code> API covers continuous optimization and discrete problems such as the Traveling Salesman.</li>
+        <li><strong>Rust core:</strong> Compiled via PyO3 and shipped to both registries.</li>
       </ul>
-      <div class="flex flex-wrap gap-2">
-        <span class="tag">Rust</span>
-        <span class="tag">PyO3</span>
-        <span class="tag">Python</span>
-        <span class="tag">Optimization</span>
-      </div>
-    </div>
 
-    <div>
-      <h3 class="font-semibold mb-1">
-        <a href="https://crates.io/crates/enigmar" class="hover:underline text-[var(--primary)]">
-          enigmar
-        </a>
-        <span class="text-xs font-normal opacity-70">— Rust · crates.io</span>
-      </h3>
-      <p class="text-sm mb-2">
+      <pre class="snippet"><code>from colonyx import AutoColony
+
+def sphere(x):
+    return sum(xi * xi for xi in x)
+
+opt = AutoColony(
+    mode="pso", n_iterations=150, random_state=42
+)
+opt.fit(sphere, bounds=[(-5, 5)] * 3)
+
+opt.predict()   <span class="c"># -> ~[0, 0, 0]</span>
+opt.score()     <span class="c"># -> ~0.004</span></code></pre>
+
+      <div class="install">
+        <code>pip install colonyx</code>
+        <button class="copy" type="button" data-copy="pip install colonyx" aria-label="Copy install command">Copy</button>
+      </div>
+
+      <p class="links">
+        <a href="https://pypi.org/project/colonyx/">PyPI</a>
+        <a href="https://crates.io/crates/colonyx">crates.io</a>
+        <a href="https://minhld.github.io/colonyx/">Docs</a>
+      </p>
+    </article>
+
+    <article class="tile entry span-4">
+      <div class="entry-head">
+        <h3><a href="https://crates.io/crates/enigmar">enigmar</a></h3>
+        <span class="meta">
+          {%- if enigmar %}<span class="ver">v{{ enigmar.crate.max_version }}</span> · {% endif -%}
+          Rust
+        </span>
+      </div>
+      <p>
         A high-performance Enigma machine simulator covering the M3 and M4 models, with Python
         bindings for anyone who would rather explore the cipher from a notebook.
       </p>
-      <ul class="list-disc list-inside text-sm space-y-1 pl-2 mb-2">
+      <ul>
         <li><strong>Historical fidelity:</strong> Models the rotor, reflector, and plugboard mechanics of the M3 and M4 machines.</li>
-        <li><strong>Two audiences:</strong> A Rust crate for speed, plus Python bindings for teaching, tinkering, and cryptanalysis experiments.</li>
+        <li><strong>Rust core, Python bindings:</strong> A Rust implementation exposed to Python through PyO3, for teaching, tinkering, and cryptanalysis experiments.</li>
       </ul>
-      <div class="flex flex-wrap gap-2">
-        <span class="tag">Rust</span>
-        <span class="tag">Cryptography</span>
-        <span class="tag">Python Bindings</span>
-        <span class="tag">Simulation</span>
+
+      <pre class="snippet"><code>use enigmar::EnigmaBuilder;
+
+let mut machine = EnigmaBuilder::new()
+    .rotor("I", 0, 0)      <span class="c">// type, position, ring setting</span>
+    .rotor("II", 0, 0)
+    .rotor("III", 0, 0)
+    .reflector("B")
+    .plugboard("AV BS CG DL FU HZ IN KM OW RX")
+    .build()
+    .unwrap();
+
+let ciphertext = machine.process_string("HELLOWORLD");</code></pre>
+
+      <div class="install">
+        <code>cargo add enigmar</code>
+        <button class="copy" type="button" data-copy="cargo add enigmar" aria-label="Copy install command">Copy</button>
       </div>
-    </div>
-  </section>
+
+      <p class="links">
+        <a href="https://crates.io/crates/enigmar">crates.io</a>
+        <a href="https://github.com/MinLee0210/enigmar">Source</a>
+      </p>
+    </article>
+  </div>
+</section>

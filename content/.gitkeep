@@ -1,0 +1,2 @@
+Zola refuses to run `zola serve` without a content directory, even for a
+site whose pages all come from templates. This keeps it in the repo.
