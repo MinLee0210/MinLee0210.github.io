@@ -578,6 +578,13 @@ code {
   font-size: 0.875em;
 }
 
+/* A deliberate gap, marked as one, rather than an entry that looks unfinished. */
+.placeholder {
+  font-size: 0.875rem;
+  font-style: italic;
+  color: var(--faint);
+}
+
 /* --- Tags ------------------------------------------------------ */
 
 .tags {
